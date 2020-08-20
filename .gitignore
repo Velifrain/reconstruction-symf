@@ -16,5 +16,4 @@
 ###< symfony/phpunit-bridge ###
 
 .idea/
-docker/
 data/
