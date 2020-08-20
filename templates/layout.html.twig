@@ -1,0 +1,191 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <!-- SWIPER -->
+    <section class="swiper-container swiper-btn-group swiper-btn-group-end text-white p-0 h-75vh overflow-hidden"
+             data-swiper='{
+					"slidesPerView": 1,
+					"spaceBetween": 0,
+					"autoplay": { "delay" : 3500, "disableOnInteraction": false },
+					"loop": true,
+					"pagination": { "type": "bullets" }
+				}'>
+
+        <div class="swiper-wrapper h-100">
+            <!-- slide 1 -->
+            <div class="h-100 swiper-slide d-middle bg-white overlay-dark overlay-opacity-2 bg-cover"
+                 style="background-image:url({{ asset('assets/images/reko_battle_1920_960.jpeg') }})">
+                <div class="container z-index-10 text-white text-center-xs">
+                    <h1 class="h2-xs fs--50 line-height-1" data-swiper-parallax="-300">
+                        Get your music<br>
+                        <span class="text-danger">everywhere</span>
+                    </h1>
+                    <p data-swiper-parallax="-100">
+                        Smarty is lightweight, modular and <b>highly</b> scallable!
+                    </p>
+                    <p class="mt-5" data-swiper-parallax="-200">
+                        <a href="#" class="btn btn-danger transition-hover-top">
+                            <i class="fi fi-arrow-end"></i>
+                            Check it out
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- /slide 1 -->
+
+            <!-- slide 2 -->
+            <div class="lazy h-100 swiper-slide d-middle bg-white overlay-dark overlay-opacity-1 bg-cover"
+                 style="background-image:url({{ asset('assets/images/reko_bw_1920_960.jpeg') }})">
+                <div class="container z-index-10 text-white text-center-xs">
+                    <h2 class="h2-xs fs--50 line-height-1" data-swiper-parallax="-300">
+                        High technology<br>
+                        <span class="text-secondary">in your pocket</span>
+                    </h2>
+                    <p data-swiper-parallax="-100">
+                        Smarty is lightweight, modular and <b>highly</b> scallable!
+                    </p>
+                    <p class="mt-5" data-swiper-parallax="-200">
+
+                        <a href="#" class="btn btn-secondary transition-hover-top">
+                            <i class="fi fi-arrow-end"></i>
+                            Check it out
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- /slide 2 -->
+
+            <!-- slide 3 -->
+            <div class="lazy h-100 swiper-slide d-middle bg-white overlay-dark overlay-opacity-1 bg-cover"
+                 style="background-image:url({{ asset('assets/images/reko_night_1920_960.jpeg') }})">
+                <div class="container z-index-10 text-white text-center-xs">
+                    <h2 class="h2-xs fs--50 line-height-1" data-swiper-parallax="-300">
+                        Start running<br>
+                        <span class="text-warning">with results</span>
+                    </h2>
+                    <p data-swiper-parallax="-100">
+                        Smarty is lightweight, modular and <b>highly</b> scallable!
+                    </p>
+                    <p class="mt-5" data-swiper-parallax="-200">
+                        <a href="#" class="btn btn-pill btn-warning transition-hover-top">
+                            <i class="fi fi-arrow-end"></i>
+                            Check it out
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <!-- /slide 3 -->
+
+            <!-- slide 4 -->
+            <a href="#"
+               class="lazy h-100 swiper-slide d-middle bg-white overlay-dark overlay-opacity-5 bg-cover text-decoration-none"
+               style="background-image:url({{ asset('assets/images/rekoo_1920_960.jpeg') }})">
+                <div class="container z-index-10 text-white text-center-xs">
+                    <h2 class="h2-xs fs--50 line-height-1" data-swiper-parallax="-300">
+                        Full size <span class="text-warning">clickable</span>
+                    </h2>
+                    <p data-swiper-parallax="-100">
+                        Smarty is lightweight, modular and <b>highly</b> scallable!
+                    </p>
+                </div>
+            </a>
+            <!-- /slide 4 -->
+        </div>
+        <!-- Add Arrows -->
+        <div class="swiper-button-next swiper-button-white"></div>
+        <div class="swiper-button-prev swiper-button-white"></div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+    </section>
+    <!-- /SWIPER -->
+
+    <!-- CALL TO ACTION -->
+    <section class="bg-white py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-12 col-md-12">
+                    <h3 class="m-0 font-weight-light">Grow your business your customers can't ignore!</h3>
+                    <p class="m-0">Our pofessionals are here for your business!</p>
+                </div>
+                <div class="col-12 mt-4 d-block d-md-none"><!-- mobile spacer --></div>
+            </div>
+        </div>
+    </section>
+    <!-- /CALL TO ACTION -->
+
+    <!-- block : для организаторов -->
+    <section id="section_about " class="bg-gray-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 mb-5 jarallax" data-jarallax-element="-30">
+                    <div class="overflow-hidden position-relative rounded">
+                        <img class="img-fluid rounded"
+                             src="{{ asset('assets/images/austin-distel-wD1LRb9OeEo-unsplash.jpg') }}" alt="...">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <h2 class="h1 font-weight-light mb-4">
+                        Для організаторів
+
+                    </h2>
+                    <p class="lead mb-5">
+                        Mauris gravida tempor dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        Aenean molestie leo lectus, ac convallis tellus varius id. Praesent mattis scelerisque libero,
+                        quis semper magna dictum id. Aliquam sagittis at odio vel placerat. Proin sed massa ac eros
+                        feugiat pellentesque. Fusce ut est cursus, molestie libero blandit, euismod justo.
+                    </p>
+                    <a href="#" class="btn btn-primary btn-soft">
+                        Get in touch with us
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- block : для участников -->
+    <section id="section_about">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 mb-5 jarallax" data-jarallax-element="-30">
+                    <div class="overflow-hidden position-relative rounded">
+                        <img class="img-fluid rounded"
+                             src="{{ asset('assets/images/austin-distel-wD1LRb9OeEo-unsplash.jpg') }}" alt="...">
+                    </div>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <h2 class="h1 font-weight-light mb-4">
+                        Для учасників
+                    </h2>
+                    <p class="lead mb-5">
+                        Mauris gravida tempor dictum. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        Aenean molestie leo lectus, ac convallis tellus varius id. Praesent mattis scelerisque libero,
+                        quis semper magna dictum id. Aliquam sagittis at odio vel placerat. Proin sed massa ac eros
+                        feugiat pellentesque. Fusce ut est cursus, molestie libero blandit, euismod justo.
+                    </p>
+                    <a href="#" class="btn btn-primary btn-soft">
+                        Get in touch with us
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="bg-light text-center pb-10">
+        <div class="container">
+            <h2>Curabitur rhoncus tellus non</h2>
+            <div class="max-w-800 mx-auto py-4">
+                <p class="lead">
+                    Praesent vitae condimentum ligula. Integer nec ullamcorper enim. Ut dictum turpis molestie, tempus
+                    elit vulputate, ornare nunc. Proin volutpat ut tellus eu tincidunt. Proin ultricies mauris at lorem
+                    cursus, eget finibus purus lacinia. Vivamus volutpat placerat mattis. Aliquam pharetra lacinia dolor
+                    et condimentum. Donec ante libero, elementum nec mattis vel, placerat sit amet quam.
+                </p>
+                <a href="#" class="float-right"><i class="fi fi-arrow-right"></i> Read more</a>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
