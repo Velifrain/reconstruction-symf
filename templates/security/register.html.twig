@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sing up{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="container">
+            <div class="row">
+
+                {% if app.flashes('confirmed') %}
+                    <div class="container mb-7">
+                        <div class="row">
+                            <div class="py-lg-5 col-12 col-sm-8 col-md-8 col-lg-6 offset-sm-2 offset-md-2 offset-lg-3 text-center">
+                                <h3 class="m-0">Реєстрація пройшла успішно</h3>
+                                <p>На вказану вами при реєстрації адресу електронної пошти було відправлено підтвердження</p>
+                             </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col-12 col-sm-8 col-md-8 col-lg-6 offset-sm-2 offset-md-2 offset-lg-3">
+                        <div class="bs-validate p-5 py-6 rounded shadow-xs d-inline-block bg-white text-dark w-100 max-w-600">
+
+
+                            <h2 class="mb-5 text-center">Create your account</h2>
+
+                            {{ form_start(form, {'attr': {
+                                'method': 'POST',
+                                'class':'form-label-group',
+                                'novalidate': 'novalidate'
+                            }}) }}
+                            <div class="mb-3">
+                                {{ form_label(form.email) }}
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'autocomplete': 'off'}}) }}
+                                {% if form.email.vars.errors|length > 0 %}
+                                    <div class="form-text text-danger small">{{ form_errors(form.email) }}</div>
+                                {% endif %}
+                            </div>
+
+                            <div class="mb-3">
+                                {{ form_label(form.password.first) }}
+                                {{ form_widget(form.password.first,{'attr': {'class': 'form-control', 'autocomplete': 'off'}}) }}
+                                {% if form.password.first.vars.errors|length > 0 %}
+                                    <div class="form-text text-danger small">{{ form_errors(form.password.first) }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.password.second) }}
+                                {{ form_widget(form.password.second,{'attr': {'class': 'form-control', 'autocomplete': 'off'}}) }}
+                                {% if form.password.second.vars.errors|length > 0 %}
+                                    <div class="form-text text-danger small">{{ form_errors(form.password.second) }}</div>
+                                {% endif %}
+                            </div>
+
+                            {{ form_errors(form) }}
+                            <button type="submit"
+                                    class="btn btn-primary btn-block transition-hover-top">
+                                Create account
+                            </button>
+                            {{ form_end(form) }}
+                        </div>
+
+                        <div class="alert bg-white text-dark p-3 my-2 b-0 rounded d-inline-block w-100 max-w-600 shadow-xs font-weight-lighter small">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span class="fi fi-close" aria-hidden="true"></span>
+                            </button>
+                            By creating an account, you agree to the <a href="#" class="link-muted"> Terms of
+                                Service</a>.
+                            For more information about <a href="#" class="link-muted">privacy practices</a>, see the
+                            Privacy Statement. We'll occasionally send you account-related emails.
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+        </div><!-- /#containar -->
+    </section>
+
+{% endblock %}

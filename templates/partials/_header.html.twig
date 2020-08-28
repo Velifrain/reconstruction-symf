@@ -1,10 +1,10 @@
 
     <!-- HEADER -->
-    <header id="header" class="shadow-xs">
+    <header id="header" class="shadow-xs bg-gradient-dark">
         <!-- NAVBAR -->
         <div class="container position-relative">
 
-            <nav class="navbar navbar-expand-lg navbar-light justify-content-lg-between justify-content-md-inherit">
+            <nav class="navbar navbar-expand-lg navbar-dark text-white justify-content-lg-between justify-content-md-inherit">
 
                 <div class="align-items-start">
 
@@ -23,7 +23,7 @@
                         Logo : height: 70px max
                     -->
                     <a class="navbar-brand" href="#">
-                        <img src="{{ asset('assets/images/logo/logo_dark.svg') }}" width="110" height="70" alt="...">
+                        <img src="{{ asset('assets/images/logo/logo_white.svg') }}" width="40" height="45" alt="...">
                     </a>
 
                 </div>
@@ -38,8 +38,9 @@
                         <button class="navbar-toggler pt-0" type="button" data-toggle="collapse"
                                 data-target="#navbarMainNav" aria-controls="navbarMainNav" aria-expanded="false"
                                 aria-label="Toggle navigation">
-                            <svg width="20">
-                                <path d="M 20.7895 0.977 L 19.3752 -0.4364 L 10.081 8.8522 L 0.7869 -0.4364 L -0.6274 0.977 L 8.6668 10.2656 L -0.6274 19.5542 L 0.7869 20.9676 L 10.081 11.679 L 19.3752 20.9676 L 20.7895 19.5542 L 11.4953 10.2656 L 20.7895 0.977 Z"></path>
+                            <svg width="20" viewBox="0 0 20 20">
+                                <path d="M 20.7895 0.977 L 19.3752 -0.4364 L 10.081 8.8522 L 0.7869 -0.4364 L -0.6274
+                                0.977 L 8.6668 10.2656 L -0.6274 19.5542 L 0.7869 20.9676 L 10.081 11.679 L 19.3752 20.9676 L 20.7895 19.5542 L 11.4953 10.2656 L 20.7895 0.977 Z"></path>
                             </svg>
                         </button>
 
@@ -48,7 +49,7 @@
                             Logo : height: 70px max
                         -->
                         <a class="navbar-brand" href="#">
-                            <img src="{{ asset('assets/images/logo/logo_dark.svg') }}" width="110" height="70"
+                            <img src="{{ asset('assets/images/logo/logo_white.svg') }}" width="40" height="45"
                                  alt="...">
                         </a>
 
@@ -69,7 +70,7 @@
                             </a>
 
                             <div aria-labelledby="mainNavHome"
-                                 class="dropdown-menu dropdown-menu-clean dropdown-menu-hover">
+                                 class="dropdown-menu dropdown-menu-clean dropdown-menu-light dropdown-menu-hover">
                                 <ul class="list-unstyled m-0 p-0">
                                     <li class="dropdown-item dropdown"><a href="#" class="dropdown-link"
                                                                           data-toggle="dropdown">Home Landing</a>
@@ -90,12 +91,21 @@
                                     </li>
                                 </ul>
                             </div>
-
                         </li>
                     </ul>
-                    <!-- /NAVIGATION -->
 
+                    <!-- /NAVIGATION -->
                 </div>
+
+                <!-- OPTIONS -->
+                <ul class="list-inline list-unstyled mb-0 d-flex align-items-end">
+
+                    <li class="list-inline-item ml--6 mr--6 float-start d-none d-lg-inline-block">
+                        <a href="{{ path('register') }}" class="btn btn-sm btn-outline-light shadow-none m-1">Join</a>
+                    </li>
+
+                </ul>
+                <!-- /OPTIONS -->
             </nav>
 
         </div>
