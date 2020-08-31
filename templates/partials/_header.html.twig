@@ -11,7 +11,7 @@
                     <!-- mobile menu button : show -->
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMainNav"
                             aria-controls="navbarMainNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <svg width="25">
+                        <svg width="25" viewBox="0 0 20 20">
                             <path d="M 19.9876 1.998 L -0.0108 1.998 L -0.0108 -0.0019 L 19.9876 -0.0019 L 19.9876 1.998 Z"></path>
                             <path d="M 19.9876 7.9979 L -0.0108 7.9979 L -0.0108 5.9979 L 19.9876 5.9979 L 19.9876 7.9979 Z"></path>
                             <path d="M 19.9876 13.9977 L -0.0108 13.9977 L -0.0108 11.9978 L 19.9876 11.9978 L 19.9876 13.9977 Z"></path>
@@ -22,7 +22,7 @@
                     <!--
                         Logo : height: 70px max
                     -->
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{ path('index') }}">
                         <img src="{{ asset('assets/images/logo/logo_white.svg') }}" width="40" height="45" alt="...">
                     </a>
 
@@ -99,11 +99,23 @@
 
                 <!-- OPTIONS -->
                 <ul class="list-inline list-unstyled mb-0 d-flex align-items-end">
-
-                    <li class="list-inline-item ml--6 mr--6 float-start d-none d-lg-inline-block">
-                        <a href="{{ path('register') }}" class="btn btn-sm btn-outline-light shadow-none m-1">Join</a>
+                    {% if app.user == null %}
+                    <li class="list-inline-item ml--2 mr--2 float-start d-none d-lg-inline-block">
+                        <a href="{{ path('register') }}" class="btn btn-sm btn-outline-light bg-transparent border-transparent text-secondary-hover shadow-none m-1">Join</a>
                     </li>
+                    {% endif %}
+                    {% if app.user == null %}
+                    <li class="list-inline-item ml--2 mr--2 float-start d-none d-lg-inline-block">
+                        <a href="{{ path('login') }}" class="btn btn-sm btn-outline-light bg-transparent border-transparent text-secondary-hover shadow-none m-1">Login</a>
+                    </li>
+                    {% endif %}
 
+
+                    {% if app.user %}
+                    <li class="list-inline-item ml--6 mr--6 float-start d-none d-lg-inline-block">
+                        <a href="{{ path('logout') }}" class="btn btn-sm btn-outline-light bg-transparent border-transparent text-secondary-hover shadow-none m-1">Logout</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <!-- /OPTIONS -->
             </nav>
