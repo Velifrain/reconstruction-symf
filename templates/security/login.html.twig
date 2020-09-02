@@ -4,48 +4,55 @@
 
     {% block content %}
 
-        <section>
+        <section class="flex-grow-1">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-sm-8 col-md-8 col-lg-6 offset-sm-2 offset-md-2 offset-lg-3">
 
-
                         <form method="post" class="p-5 rounded shadow-xs" novalidate>
-                            {% if error %}
-                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                            {% endif %}
 
-                            {% if app.user %}
-                                <div class="mb-3">
-                                    You are logged in as {{ app.user.username }}, <a
-                                            href="{{ path('logout') }}">Logout</a>
-                                </div>
-                            {% endif %}
-                            <div class="form-label-group mb-3">
-                                <input type="email" value="{{ last_username }}" name="email" id="account_email"
-                                       placeholder="Email" class="form-control" required autofocus>
+                            <h2 class="text-center mb-5">Sing in</h2>
+
+                            <div class="mb-3">
                                 <label for="account_email">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="account_email"
+                                       class="form-control" required autofocus>
                             </div>
 
                             <div class="input-group-over">
-                                <div class="form-label-group mb-3">
-                                    <input type="password" name="password" id="account_password" placeholder="Password"
-                                           class="form-control" required>
+                                <div class="mb-4">
                                     <label for="account_password">Password</label>
+                                    <input type="password" name="password" id="account_password"
+                                           class="form-control" required>
+
+                                    {% if error %}
+                                        <div class="form-text text-danger small">
+                                            <ul>
+                                                <li> {{ error.messageKey|trans(error.messageData, 'security') }}</li>
+                                            </ul>
+                                        </div>
+                                    {% endif %}
                                 </div>
-                                <a href="#" class="btn fs--12">
+                                <a href="#" class="{{ error|length > 0 ? 'pt-4': 'pt-5' }} btn fs--12">
                                     FORGOT?
                                 </a>
                             </div>
+
+                            <input type="hidden" name="_target_path" value="{{ path('index') }}"/>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                            <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                Sign in
-                            </button>
+                            <div class="row">
+                                <div class="col-12 mt-4">
+                                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                                        Sign in
+                                    </button>
+                                </div>
+                            </div>
                         </form>
 
                     </div>
                 </div>
             </div>
         </section>
+
     {% endblock %}
