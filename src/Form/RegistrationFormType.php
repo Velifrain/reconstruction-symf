@@ -10,17 +10,27 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\{EmailType, PasswordType, RepeatedType, TextType};
+use Symfony\Component\Form\Extension\Core\Type\{EmailType, PasswordType, RepeatedType};
 use Symfony\Component\Validator\Constraints\Regex;
 
+/**
+ * Class RegistrationFormType
+ * @package App\Form
+ */
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class, [
                 'constraints' => [
-                    new NotBlank(),
+                    new NotBlank([
+                        'message' =>'Username may only contain alphanumeric characters or single hyphens, 
+                    and cannot begin or end with a hyphen.']),
                     new Email()
                 ]
             ])
@@ -47,7 +57,12 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class
+            'data_class' => User::class,
+            // the name of the hidden HTML field that stores the token
+            'csrf_field_name' => 'token',
+            // an arbitrary string used to generate the value of the token
+            // using a different string for each form improves its security
+            'csrf_token_id'   => 'register_item',
         ]);
     }
 }
