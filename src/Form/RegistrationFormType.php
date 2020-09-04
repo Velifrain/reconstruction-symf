@@ -27,16 +27,15 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
+                'label' =>'label.email',
                 'constraints' => [
-                    new NotBlank([
-                        'message' =>'Username may only contain alphanumeric characters or single hyphens, 
-                    and cannot begin or end with a hyphen.']),
+                    new NotBlank(),
                     new Email()
-                ]
+                ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Password does not match.',
+                'invalid_message' => 'error.register_password',
                 'constraints' => [
                     new Regex([
                         'pattern' => '/^[a-zA-Z0-9]*$/',
@@ -48,8 +47,8 @@ class RegistrationFormType extends AbstractType
                         'max' => 50, // max length allowed by Symfony for security reasons
                     ]),
                 ],
-                'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Repeat Password']
+                'first_options' => ['label' => 'label.password'],
+                'second_options' => ['label' => 'label.repeat_password']
             ])
         ;
     }

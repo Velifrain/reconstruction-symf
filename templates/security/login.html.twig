@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}{{ 'title.log_in'|trans }}{% endblock %}
 
     {% block content %}
 
@@ -11,30 +11,30 @@
 
                         <form method="post" class="p-5 rounded shadow-xs" novalidate>
 
-                            <h2 class="text-center mb-5">Login</h2>
+                            <h2 class="text-center mb-5">{{ 'title.login'|trans }}</h2>
 
                             <div class="mb-3">
-                                <label for="account_email">Email</label>
+                                <label for="account_email">{{ 'label.email'|trans }}</label>
                                 <input type="email" value="{{ last_username }}" name="email" id="account_email"
                                        class="form-control" required autofocus>
                             </div>
 
                             <div class="input-group-over">
                                 <div class="mb-4">
-                                    <label for="account_password">Password</label>
+                                    <label for="account_password">{{ 'label.password'|trans }}</label>
                                     <input type="password" name="password" id="account_password"
                                            class="form-control" required>
 
                                     {% if error %}
                                         <div class="form-text text-danger small">
                                             <ul>
-                                                <li> {{ error.messageKey|trans(error.messageData, 'security') }}</li>
+                                                <li> {{ error.messageKey|trans(error.messageData, 'validators') }}</li>
                                             </ul>
                                         </div>
                                     {% endif %}
                                 </div>
-                                <a href="#" class="{{ error|length > 0 ? 'pt-4': 'pt-5' }} btn fs--12">
-                                    FORGOT?
+                                <a href="#" class="{{ error|length > 0 ? 'pt-4': 'pt-5' }} btn fs--12 shadow-none">
+                                    {{ 'action.forgot'|trans }}
                                 </a>
                             </div>
 
@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-12 mt-4">
                                     <button class="btn btn-lg btn-primary btn-block" type="submit">
-                                        Sign in
+                                        {{ 'action.sign_in'|trans }}
                                     </button>
                                 </div>
                             </div>

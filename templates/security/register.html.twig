@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sing up{% endblock %}
+{% block title %}{{ 'title.sign_up'|trans }}{% endblock %}
 
 {% block content %}
     <section class="flex-grow-1">
@@ -21,7 +21,7 @@
                     <div class="col-12 col-sm-8 col-md-8 col-lg-6 offset-sm-2 offset-md-2 offset-lg-3">
                         <div class="p-5 rounded shadow-xs d-inline-block bg-white text-dark w-100 max-w-600">
 
-                            <h2 class="text-center mb-5">Create your account</h2>
+                            <h2 class="text-center mb-5">{{ 'title.create_account'|trans }}</h2>
 
                             {{ form_start(form, {'attr': {
                                 'method': 'POST',
@@ -68,7 +68,7 @@
                                 <div class="col-12 mt-4">
                                     <button type="submit"
                                             class="btn btn-primary btn-block transition-hover-top">
-                                        Create account
+                                       {{ 'action.create_account'|trans }}
                                     </button>
                                 </div>
                             </div>
@@ -80,10 +80,8 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span class="fi fi-close" aria-hidden="true"></span>
                             </button>
-                            By creating an account, you agree to the <a href="#" class="link-muted"> Terms of
-                                Service</a>.
-                            For more information about <a href="#" class="link-muted">privacy practices</a>, see the
-                            Privacy Statement. We'll occasionally send you account-related emails.
+                            {{ 'notification.terms'|trans }} <a href="#" class="link-muted"> Terms of Service</a>.
+                            {{ 'notification.privacy'|trans }} <a href="#" class="link-muted">Privacy Statement</a>.
                         </div>
                     </div>
                 {% endif %}
