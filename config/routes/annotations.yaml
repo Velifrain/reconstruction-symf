@@ -2,8 +2,8 @@ controllers:
     resource: ../../src/Controller/
     type: annotation
     prefix:
-        uk: '/'
-        ru: '/ru'
+        uk: ''
+        ru: 'ru'
 kernel:
     resource: ../../src/Kernel.php
     type: annotation

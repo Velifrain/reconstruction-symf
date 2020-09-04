@@ -28,7 +28,7 @@
                                     {% if error %}
                                         <div class="form-text text-danger small">
                                             <ul>
-                                                <li> {{ error.messageKey|trans(error.messageData, 'validators') }}</li>
+                                                <li> {{ error.messageKey|trans(error.messageData, 'security') }}</li>
                                             </ul>
                                         </div>
                                     {% endif %}
