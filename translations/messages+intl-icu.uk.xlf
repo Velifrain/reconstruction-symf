@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="uk" target-language="uk" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="UoOv6mx" resname="menu.homepage">
+        <source>menu.homepage</source>
+        <target>Головна</target>
+      </trans-unit>
+      <trans-unit id="GQd4K9H" resname="menu.join">
+        <source>menu.join</source>
+        <target>Приєднатися</target>
+      </trans-unit>
+      <trans-unit id="mMdg0uH" resname="menu.login">
+        <source>menu.login</source>
+        <target>Ввійти</target>
+      </trans-unit>
+      <trans-unit id="wBTFKFR" resname="menu.logout">
+        <source>menu.logout</source>
+        <target>Вийти</target>
+      </trans-unit>
+      <trans-unit id="vxGpH_Z" resname="title.log_in">
+        <source>title.log_in</source>
+        <target>Ввійти на сайт</target>
+      </trans-unit>
+      <trans-unit id="80JoLd0" resname="title.login">
+        <source>title.login</source>
+        <target>Авторизація</target>
+      </trans-unit>
+      <trans-unit id="D2N6_cP" resname="label.email">
+        <source>label.email</source>
+        <target>Електронна пошта</target>
+      </trans-unit>
+      <trans-unit id="9pvowqn" resname="label.password">
+        <source>label.password</source>
+        <target>Пароль</target>
+      </trans-unit>
+      <trans-unit id="label.repeat_password">
+        <source>label.repeat_password</source>
+        <target>Повторити пароль</target>
+      </trans-unit>
+      <trans-unit id="ueBGUve" resname="action.forgot">
+        <source>action.forgot</source>
+        <target>ЗАБУЛИ?</target>
+      </trans-unit>
+      <trans-unit id="z2pPSYV" resname="action.sign_in">
+        <source>action.sign_in</source>
+        <target>Ввійти</target>
+      </trans-unit>
+      <trans-unit id="Uo_5Apm" resname="title.sign_up">
+        <source>title.sign_up</source>
+        <target>Зареєструватися</target>
+      </trans-unit>
+      <trans-unit id="ZYwAHrC" resname="title.create_account">
+        <source>title.create_account</source>
+        <target>Створіть свій аккаунт</target>
+      </trans-unit>
+      <trans-unit id="Q1VSdMM" resname="action.create_account">
+        <source>action.create_account</source>
+        <target>Створити аккаунт</target>
+      </trans-unit>
+      <trans-unit id="DNYYLep" resname="notification.terms">
+        <source>notification.terms</source>
+        <target>Створюючи обліковий запис, ви погоджуєтесь із</target>
+      </trans-unit>
+      <trans-unit id="rGY53oF" resname="notification.privacy">
+        <source>notification.privacy</source>
+        <target>Для отримання додаткової інформації див.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

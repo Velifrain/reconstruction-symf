@@ -1,5 +1,51 @@
 <!-- HEADER -->
 <header id="header" class="shadow-xs bg-gradient-dark">
+
+{#    <!--top bar -->#}
+{#    <div id="top_bar" class="bg-dark fs--14"> <!-- optional if body.header-sticky is present: add .js-ignore class to ignore autohide and stay visible all the time -->#}
+{#        <div class="container">#}
+
+{#            <div class="text-nowrap"><!-- change with .scrollable-horizontal to horizontally scroll, if -only- no dropdown is present -->#}
+{#                <div class="d-flex justify-content-end">#}
+
+{#                    <div class="d-inline-block float-end">#}
+{#                        <ul class="list-inline m-0">#}
+
+{#                            <!-- LANGUAGE -->#}
+{#                            <li class="dropdown list-inline-item m-0">#}
+
+{#                                <a id="topDDLanguage" href="#" class="py-2 d-inline-block js-stoppropag" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">#}
+{#                                    <i class="flag flag-ua"></i>#}
+{#                                    <span class="text-muted pl-2 pr-2">UA</span>#}
+{#                                </a>#}
+
+{#                                <div aria-labelledby="topDDLanguage" class="dropdown-menu dropdown-menu-hover text-uppercase fs--13 px-1 pt-1 pb-0 m-0 max-h-50vh scrollable-vertical">#}
+{#                                    <a href="#" class="active dropdown-item text-muted text-truncate line-height-1 rounded p--12 mb-1">#}
+{#                                        <i class="flag flag-ua"></i>#}
+{#                                        UA#}
+{#                                    </a>#}
+{#                                    <a href="#" class="dropdown-item text-muted text-truncate line-height-1 rounded p--12 mb-1">#}
+{#                                        <i class="flag flag-ru"></i>#}
+{#                                        RU#}
+{#                                    </a>#}
+{#                                    <a href="#" class="dropdown-item text-muted text-truncate line-height-1 rounded p--12 mb-1">#}
+{#                                        <i class="flag flag-us"></i>#}
+{#                                        EN#}
+{#                                    </a>#}
+{#                                </div>#}
+
+{#                            </li>#}
+{#                            <!-- /LANGUAGE -->#}
+
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+
+{#        </div>#}
+{#    </div>#}
+{#    <!--/top bar-->#}
+
     <!-- NAVBAR -->
     <div class="container position-relative">
 
@@ -36,7 +82,8 @@
                             aria-label="Toggle navigation">
                         <svg width="20" viewBox="0 0 20 20">
                             <path d="M 20.7895 0.977 L 19.3752 -0.4364 L 10.081 8.8522 L 0.7869 -0.4364 L -0.6274
-                                0.977 L 8.6668 10.2656 L -0.6274 19.5542 L 0.7869 20.9676 L 10.081 11.679 L 19.3752 20.9676 L 20.7895 19.5542 L 11.4953 10.2656 L 20.7895 0.977 Z"></path>
+                                0.977 L 8.6668 10.2656 L -0.6274 19.5542 L 0.7869 20.9676 L 10.081 11.679 L 19.3752
+                                20.9676 L 20.7895 19.5542 L 11.4953 10.2656 L 20.7895 0.977 Z"></path>
                         </svg>
                     </button>
 
@@ -53,38 +100,12 @@
                 <!-- NAVIGATION -->
                 <ul class="navbar-nav">
 
-                    <!-- home -->
-                    <li class="nav-item dropdown active">
+                    <li class="nav-item">
 
-                        <a href="#" id="mainNavHome" class="nav-link dropdown-toggle"
-                           data-toggle="dropdown"
-                           aria-haspopup="true"
-                           aria-expanded="false">
-                            Home
+                        <a class="nav-link scroll-to text-white text-secondary-hover" href="#">
+                            {{ 'menu.homepage'|trans }}
                         </a>
 
-                        <div aria-labelledby="mainNavHome"
-                             class="dropdown-menu dropdown-menu-clean dropdown-menu-light dropdown-menu-hover">
-                            <ul class="list-unstyled m-0 p-0">
-                                <li class="dropdown-item dropdown"><a href="#" class="dropdown-link"
-                                                                      data-toggle="dropdown">Home Landing</a>
-                                    <ul class="dropdown-menu dropdown-menu-hover dropdown-menu-block-md shadow-lg b-0 m-0">
-                                        <li class="dropdown-item"><a href="#" class="dropdown-link">Page 1</a></li>
-                                        <li class="dropdown-item"><a href="#" class="dropdown-link">Page 2</a></li>
-                                        <li class="dropdown-item"><a href="#" class="dropdown-link">Page 3</a></li>
-                                        <li class="dropdown-item"><a href="#" class="dropdown-link">Page 4</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-item dropdown"><a href="#" class="dropdown-link"
-                                                                      data-toggle="dropdown">About</a>
-                                    <ul class="dropdown-menu dropdown-menu-hover dropdown-menu-block-md shadow-lg b-0 m-0">
-                                        <li class="dropdown-item"><a href="#" class="dropdown-link">Contacts</a>
-                                        </li>
-                                        <li class="dropdown-item"><a href="#" class="dropdown-link">Gallery</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
                     </li>
                 </ul>
 
@@ -96,16 +117,16 @@
                 {% if app.user|default(false) is same as(false) %}
                     <li class="list-inline-item ml--2 mr--2 float-start d-none d-lg-inline-block">
                         <a href="{{ path('register') }}"
-                           class="btn btn-sm btn-outline-light bg-transparent text-secondary-hover shadow-none m-1">Join</a>
+                           class="btn btn-sm btn-outline-light bg-transparent text-secondary-hover shadow-none m-1">{{ 'menu.join'|trans }}</a>
                     </li>
                     <li class="list-inline-item ml--2 mr--2 float-start d-none d-lg-inline-block">
                         <a href="{{ path('login') }}"
-                           class="btn btn-sm btn-outline-light bg-transparent text-secondary-hover shadow-none m-1">Login</a>
+                           class="btn btn-sm btn-outline-light bg-transparent text-secondary-hover shadow-none m-1">{{ 'menu.login'|trans }}</a>
                     </li>
                 {% else %}
                     <li class="list-inline-item ml--6 mr--6 float-start d-none d-lg-inline-block">
                         <a href="{{ path('logout', {'token' : csrf_token('logout')}) }}"
-                           class="btn btn-sm btn-outline-light bg-transparent text-secondary-hover shadow-none m-1">Logout</a>
+                           class="btn btn-sm btn-outline-light bg-transparent text-secondary-hover shadow-none m-1">{{ 'menu.logout'|trans }}</a>
                     </li>
                 {% endif %}
             </ul>
