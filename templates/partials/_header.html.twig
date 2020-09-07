@@ -133,7 +133,9 @@
                                 {{ 'title.name_user'|trans }}
                             </div>
                             <div class="dropdown-divider"></div>
-                            <a href="#" title="My Orders" class="dropdown-item text-truncate font-weight-light">{{ 'Info'|trans }}</a>
+                            <a href="{{ path('profile_info') }}" class="dropdown-item text-truncate font-weight-light">{{ 'menu.profile'|trans }}</a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item text-truncate font-weight-light">{{ 'Info'|trans }}</a>
                             <div class="dropdown-divider mb-0"></div>
                             <a href="{{ path('logout', {'token' : csrf_token('logout')}) }}"
                                class="prefix-icon-ignore dropdown-footer dropdown-custom-ignore">
