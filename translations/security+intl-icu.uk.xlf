@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="uk" target-language="uk" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="uk" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -49,7 +49,7 @@
         <source>Username could not be found.</source>
         <target>Ім’я користувача не знайдено.</target>
       </trans-unit>
-      <trans-unit id="error.message_email">
+      <trans-unit id="0xSwaIv" resname="Email could not be found.">
         <source>Email could not be found.</source>
         <target>Не вдалося знайти електронну пошту.</target>
       </trans-unit>

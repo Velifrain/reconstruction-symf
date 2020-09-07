@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="uk" target-language="uk" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="uk" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -37,7 +37,7 @@
         <source>label.password</source>
         <target>Пароль</target>
       </trans-unit>
-      <trans-unit id="label.repeat_password">
+      <trans-unit id="rU9cSfq" resname="label.repeat_password">
         <source>label.repeat_password</source>
         <target>Повторити пароль</target>
       </trans-unit>
@@ -61,13 +61,116 @@
         <source>action.create_account</source>
         <target>Створити аккаунт</target>
       </trans-unit>
-      <trans-unit id="DNYYLep" resname="notification.terms">
-        <source>notification.terms</source>
+      <trans-unit id="ABscxPp" resname="info.notification_terms">
+        <source>info.notification_terms</source>
         <target>Створюючи обліковий запис, ви погоджуєтесь із</target>
       </trans-unit>
-      <trans-unit id="rGY53oF" resname="notification.privacy">
-        <source>notification.privacy</source>
+      <trans-unit id="hDFtK1w" resname="info.notification_privacy">
+        <source>info.notification_privacy</source>
         <target>Для отримання додаткової інформації див.</target>
+      </trans-unit>
+      <trans-unit id="pGkejkU" resname="label.current_password">
+        <source>label.current_password</source>
+        <target>Поточний пароль</target>
+      </trans-unit>
+      <trans-unit id="iiWFLaI" resname="label.new_password">
+        <source>label.new_password</source>
+        <target>Новий пароль</target>
+      </trans-unit>
+      <trans-unit id="aUMPzEs" resname="info.edit_profile">
+        <source>info.edit_profile</source>
+        <target>Редагувати профіль</target>
+      </trans-unit>
+      <trans-unit id="ma9mBv_" resname="Menu">
+        <source>Menu</source>
+        <target>Меню</target>
+      </trans-unit>
+      <trans-unit id="FwMioy8" resname="Info">
+        <source>Info</source>
+        <target>Інфо</target>
+      </trans-unit>
+      <trans-unit id="XSS5BT8" resname="menu.profile">
+        <source>menu.profile</source>
+        <target>Профіль</target>
+      </trans-unit>
+      <trans-unit id="H7kee_F" resname="label.first_name">
+        <source>label.first_name</source>
+        <target>Ім'я</target>
+      </trans-unit>
+      <trans-unit id="aglwuCV" resname="label.last_name">
+        <source>label.last_name</source>
+        <target>Прізвище</target>
+      </trans-unit>
+      <trans-unit id="1lTIomY" resname="label.email_address">
+        <source>label.email_address</source>
+        <target>Адреса електронної пошти</target>
+      </trans-unit>
+      <trans-unit id="bHIaZz_" resname="label.phone_number">
+        <source>label.phone_number</source>
+        <target>Номер телефону</target>
+      </trans-unit>
+      <trans-unit id="6gJoCSy" resname="A confirmation link will be sent to current email address">
+        <source>A confirmation link will be sent to current email address</source>
+        <target>Посилання для підтвердження буде надіслано на поточну електронну адресу</target>
+      </trans-unit>
+      <trans-unit id="6LjrKGe" resname="Country...">
+        <source>Country...</source>
+        <target>Країна ...</target>
+      </trans-unit>
+      <trans-unit id="GqiHw5C" resname="Keep me up to date on news and exclusive offers">
+        <source>Keep me up to date on news and exclusive offers</source>
+        <target>Будьте в курсі новин та ексклюзивних пропозицій</target>
+      </trans-unit>
+      <trans-unit id="M981B_v" resname="CHANGE PASSWORD">
+        <source>CHANGE PASSWORD</source>
+        <target>ЗМІНИТИ ПАРОЛЬ</target>
+      </trans-unit>
+      <trans-unit id="QSFsGMm" resname="delete my account">
+        <source>delete my account</source>
+        <target>видалити мій обліковий запис</target>
+      </trans-unit>
+      <trans-unit id="CIX35l2" resname="NOTE: There is no way to restore a deleted account!&#10;                                                Your account will be permanently deleted from our system.&#10;                                                Please, make sure that this is what you want.">
+        <source>NOTE: There is no way to restore a deleted account!
+                                                Your account will be permanently deleted from our system.
+                                                Please, make sure that this is what you want.</source>
+        <target>ПРИМІТКА. Видалений обліковий запис неможливо відновити!
+        Ваш обліковий запис буде назавжди видалено з нашої системи.
+        Будь ласка, переконайтеся, що це те, чого ви хочете.</target>
+      </trans-unit>
+      <trans-unit id="Egj21sh" resname="For security reasons, your account will be deactivated and permanently&#10;                                                deleted within 30 days. Deletion progress will be canceled if you sign&#10;                                                back to your account.">
+        <source>For security reasons, your account will be deactivated and permanently
+                                                deleted within 30 days. Deletion progress will be canceled if you sign
+                                                back to your account.</source>
+        <target>З міркувань безпеки ваш аккаунт буде деактивовано та остаточно видалено протягом 30 днів. Хід видалення
+        буде скасовано, якщо ви знову увійдете в свій обліковий запис.</target>
+      </trans-unit>
+      <trans-unit id="NTtSUDQ" resname="For security reasons, your current password is needed.">
+        <source>For security reasons, your current password is needed.</source>
+        <target>З міркувань безпеки потрібен ваш поточний пароль.</target>
+      </trans-unit>
+      <trans-unit id="rQfb5Hm" resname="label.feedback">
+        <source>label.feedback</source>
+        <target>Зворотній зв'язок</target>
+      </trans-unit>
+      <trans-unit id="CCfUnms" resname="SAVE CHANGES">
+        <source>SAVE CHANGES</source>
+        <target>ЗБЕРЕГТИ ЗМІНИ</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>Налаштування</target>
+      </trans-unit>
+      <trans-unit id="iztqpAC" resname="info.general_information">
+        <source>info.general_information</source>
+        <target>Загальна інформація</target>
+      </trans-unit>
+      <trans-unit id="EIsSumg" resname="title.name_user">
+        <source>title.name_user</source>
+        <target>Ім'я користувача</target>
+      </trans-unit>
+      <trans-unit id="mx1tMvj" resname="title.title_reconstruction">
+        <source>title.title_reconstruction</source>
+        <target>Реконструкція</target>
       </trans-unit>
     </body>
   </file>

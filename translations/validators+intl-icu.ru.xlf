@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="uk" target-language="ru" datatype="plaintext" original="file.ext">
+  <file source-language="en" target-language="ru" datatype="plaintext" original="file.ext">
     <header>
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
@@ -397,7 +397,7 @@
         <source>The CSRF token is invalid. Please try to resubmit the form.</source>
         <target>CSRF значение недопустимо. Пожалуйста, попробуйте повторить отправку формы.</target>
       </trans-unit>
-      <trans-unit id="error.register_password">
+      <trans-unit id="BPG8i_Q" resname="error.register_password">
         <source>error.register_password</source>
         <target>Пароли не совпадают</target>
       </trans-unit>

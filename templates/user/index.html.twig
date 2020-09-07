@@ -1,0 +1,189 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'info.edit_profile'|trans }}{% endblock %}
+
+{% block content %}
+
+    {% block breadcrumb %}
+    <!-- PAGE TITLE -->
+    <section class="bg-light p-0">
+        <div class="container py-4">
+            <h1 class="h4">
+                {{ 'Settings'|trans }}
+            </h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb fs--12">
+                    <li class="breadcrumb-item"><a href="{{ path('index') }}">{{ 'menu.homepage'|trans }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ 'menu.profile'|trans }}</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+    <!-- /PAGE TITLE -->
+    {% endblock %}
+    <!-- -->
+    <section class="flex-grow-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-3 mb--60">
+                    <nav class="sticky-kit nav-deep nav-deep-light">
+
+                        <!-- mobile only -->
+                        <button class="clearfix btn btn-toggle btn-sm btn-block text-align-left shadow-md border rounded mb-1 d-block d-lg-none"
+                                data-target="#nav_responsive"
+                                data-toggle-container-class="d-none d-sm-block bg-white shadow-md border animate-fadein rounded p-3">
+									<span class="group-icon px-2 py-2 float-start">
+										<i class="fi fi-bars-2"></i>
+										<i class="fi fi-close"></i>
+									</span>
+
+                            <span class="h5 py-2 m-0 float-start">{{ 'Menu'|trans }}</span>
+                        </button>
+
+                        <!-- desktop only -->
+                        <h5 class="pt-3 pb-3 m-0 d-none d-lg-block">
+                            {{ 'Menu'|trans }}
+                        </h5>
+
+                        <!-- navigation -->
+                        <ul id="nav_responsive" class="nav flex-column d-none d-lg-block">
+
+                            <li class="nav-item">
+                                <a class="nav-link px-0" href="#">
+											<span class="group-icon">
+												<i class="fi fi-arrow-end"></i>
+												<i class="fi fi-arrow-down"></i>
+											</span>
+
+                                    <span class="px-2 d-inline-block">{{ 'Info'|trans }}</span></a>
+                                <ul class="nav flex-column px-3">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Option 1
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">
+                                            Option 2
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+                    <!--
+                        Tab Navigation
+                        Last tab remembered using localstorage by sow.nav_deep.js plugin
+                    -->
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link nav-link-remember active" data-toggle="tab"
+                               href="#tab_account">{{ 'info.general_information'|trans }}</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <!-- ACCOUNT TAB -->
+                        <div id="tab_account" class="tab-pane active">
+                            <form method="post" action="#" novalidate enctype="multipart/form-data">
+                                <!-- PERSONAL DETAIL -->
+                                <div class="p-4 shadow-xs border bt-0 mb-4 bg-white">
+                                    <div class="row">
+                                        <!-- avatar -->
+                                        <div class="col-12 col-md-3 text-center">
+                                            <!--
+                                                Based on `SOW : File Upload`
+                                                For ajax:
+                                                documentation/plugins-sow-file-upload.html
+                                            -->
+                                            <label class="w--120 h--120 rounded-circle text-center position-relative d-inline-block cursor-pointer border border-secondary border-dashed bg-white">
+                                                <!--remove button  href="#?action=remove_avatar-->
+                                                <a href="#"
+                                                   class="js-file-upload-avatar-ajax-circle-remove-preadded position-absolute bottom-0 mb--n15 w-100 z-index-3">
+															<span class="d-inline-block btn btn-sm btn-pill bg-secondary text-white pt--4 pb--4 pl--10 pr--10"
+                                                                  data-tooltip="tooltip">
+                                                                  <!--data-original-title="remove avatar">-->
+																<i class="fi fi-close m-0"></i>
+															</span>
+                                                </a>
+                                                <!--preadded image-->
+                                                <span class="z-index-2 js-file-input-avatar-ajax-circle-container-preadded d-block absolute-full z-index-1">
+															<span style="background-image:url({{ asset('assets/images/team/no-avatar.png') }})"
+                                                                  class="js-file-input-item d-inline-block position-relative overflow-hidden text-center rounded-circle m-0 p-0 animate-bouncein bg-cover w-100 h-100">
+															</span>
+														</span>
+                                                <!--upload field-->
+                                                <input name="account_avatar"
+                                                       type="file"
+
+                                                       data-file-ext="jpg, png"
+                                                       data-file-max-size-kb-per-file="5000"
+                                                       data-file-ext-err-msg="Allowed:"
+                                                       data-file-size-err-item-msg="File too large!"
+                                                       data-file-size-err-total-msg="Total allowed size exceeded!"
+                                                       data-file-toast-position="bottom-center"
+                                                       data-file-preview-container=".js-file-input-avatar-ajax-circle-container-preadded"
+                                                       data-file-preview-show-info="false"
+                                                       data-file-preview-class="rounded-circle m-0 p-0 animate-bouncein"
+                                                       data-file-preview-img-height="118"
+                                                       data-file-btn-clear="a.js-file-upload-avatar-ajax-circle-remove-preadded"
+                                                       data-file-preview-img-cover="true"
+                                                       class="custom-file-input absolute-full" disabled>
+
+                                                <!-- avatar : : always under image -->
+                                                <svg class="fill-gray-600 rounded-circle z-index-0 m-4"
+                                                     viewBox="0 0 60 60">
+                                                    <path d="M41.014,45.389l-9.553-4.776C30.56,40.162,30,39.256,30,38.248v-3.381c0.229-0.28,0.47-0.599,0.719-0.951c1.239-1.75,2.232-3.698,2.954-5.799C35.084,27.47,36,26.075,36,24.5v-4c0-0.963-0.36-1.896-1-2.625v-5.319c0.056-0.55,0.276-3.824-2.092-6.525C30.854,3.688,27.521,2.5,23,2.5s-7.854,1.188-9.908,3.53c-2.368,2.701-2.148,5.976-2.092,6.525v5.319c-0.64,0.729-1,1.662-1,2.625v4c0,1.217,0.553,2.352,1.497,3.109c0.916,3.627,2.833,6.36,3.503,7.237v3.309c0,0.968-0.528,1.856-1.377,2.32l-8.921,4.866C1.801,46.924,0,49.958,0,53.262V57.5h46v-4.043C46,50.018,44.089,46.927,41.014,45.389z"></path>
+                                                    <path d="M55.467,46.526l-9.723-4.21c-0.23-0.115-0.485-0.396-0.704-0.771l6.525-0.005c0,0,0.377,0.037,0.962,0.037c1.073,0,2.638-0.122,4-0.707c0.817-0.352,1.425-1.047,1.669-1.907c0.246-0.868,0.09-1.787-0.426-2.523c-1.865-2.654-6.218-9.589-6.354-16.623c-0.003-0.121-0.397-12.083-12.21-12.18c-1.187,0.01-2.309,0.156-3.372,0.413c0.792,2.094,0.719,3.968,0.665,4.576v4.733c0.648,0.922,1,2.017,1,3.141v4c0,1.907-1.004,3.672-2.607,4.662c-0.748,2.022-1.738,3.911-2.949,5.621c-0.15,0.213-0.298,0.414-0.443,0.604v2.86c0,0.442,0.236,0.825,0.631,1.022l9.553,4.776c3.587,1.794,5.815,5.399,5.815,9.41V57.5H60v-3.697C60,50.711,58.282,47.933,55.467,46.526z"></path>
+                                                </svg>
+                                            </label>
+                                        </div>
+                                        <!-- /avatar -->
+
+                                        <!-- detail -->
+                                        <div class="col">
+                                            <div class="row">
+
+                                                <div class="col-12 col-sm-6 col-md-6">
+                                                    <div class="input-group-over">
+                                                        <div class="mb-3">
+                                                            <label for="account_email">{{ 'label.email_address'|trans }}</label>
+                                                            <input id="account_email" name="account_email" type="email"
+                                                                   class="form-control" value="{{ last_username }}" disabled>
+                                                        </div>
+
+                                                        <a id="email_edit_show" href="javascript:;" class="mt-3 btn fs--13 shadow-none"
+                                                           onclick="jQuery('#account_email').attr('readonly', false); jQuery('#email_edit_show, #email_edit_info').addClass('hide'); jQuery('#email_edit_hide, #email_edit_info').removeClass('hide');jQuery('#account_email').val('').focus();">
+                                                            <i class="fi fi-pencil m-0"></i>
+                                                        </a>
+
+                                                        <a id="email_edit_hide" href="javascript:;"
+                                                           class="mt-3 btn fs--12 hide shadow-none"
+                                                           onclick="jQuery('#account_email').attr('readonly', true); jQuery('#email_edit_show, #email_edit_info').removeClass('hide'); jQuery('#email_edit_hide, #email_edit_info').addClass('hide'); jQuery('#account_email').val('john.doe@gmail.com');">
+                                                            <i class="fi fi-close m-0"></i>
+                                                        </a>
+
+                                                    </div>
+                                                    <div id="email_edit_info" class="mt-1 mb-4 fs--13 text-muted hide">
+                                                        {{ 'A confirmation link will be sent to current email address'|trans }}
+                                                    </div>
+                                                    <!-- /EMAIL ADDRESS -->
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- detail -->
+                                    </div>
+                                </div>
+                                <!-- /PERSONAL DETAIL -->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / -->
+{% endblock %}

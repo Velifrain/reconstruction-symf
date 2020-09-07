@@ -49,4 +49,4 @@ security:
         # - { path: ^/join, roles: IS_IMPERSONATOR }
         # - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profile, roles: ROLE_USER }
