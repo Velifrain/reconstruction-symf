@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TestController!{% endblock %}
+
+{% block content %}
+
+    <section class="flex-grow-1">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-9">
+
+                    <!-- UPLOAD FILES TAB -->
+                    <div id="tab_upload" class="tab-pane border bt-0 p-4 shadow-xs">
+                        <div class="row">
+                            <div class="col-12 col-sm-8 col-md-11 m-auto">
+                                <h3 class="mt-3 text-center mb-5">
+                                    {{ 'Створення інвентаря'| trans }}
+                                </h3>
+
+                                {{ form_start(feetForm, {'attr': {
+                                    'method': 'POST',
+                                    'class':'form-label-group',
+                                    'novalidate': 'novalidate'
+                                }}) }}
+
+                                <!-- PERSONAL DETAIL -->
+
+                                <div class="mb-4">
+                                    {{ form_label(feetForm.name) }}
+                                    {{ form_widget(feetForm.name, {'attr': {
+                                        'class': 'form-control',
+                                        'autocomplete': 'off'
+                                    }}) }}
+                                    {% if feetForm.name.vars.errors|length > 0 %}
+                                        <div class="form-text text-danger small">{{ form_errors(feetForm.name) }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <!--IMAGE-->
+                                <!--LIST TYPE : STATIC-->
+                                <div class="mb-3">
+                                    {{ form_label(feetForm.cover) }}
+                                    <div class="input-group">
+                                        <label class="btn btn-primary btn-soft cursor-pointer position-relative">
+
+                                            {{ form_widget(feetForm.cover, {'attr': {
+                                                'data-file-ext':'mp3, jpg, png, gif',
+                                                'data-file-max-size-kb-total': '0', 'data-file-size-err-item-msg': 'File too large!', 'data-file-size-err-total-msg':'Total allowed size exceeded!',
+                                                'data-file-max-total-files':'1', 'data-file-ext-err-msg':'Allowed:', 'data-file-exist-err-msg':'File already exists:',
+                                                'data-file-size-err-max-msg':'Maximum allowed files:', 'data-file-toast-position':'bottom-center',
+                                                'data-file-preview-container':'.js-file-input-container-multiple-list-static', 'data-file-preview-img-height':'80',
+                                                'data-file-btn-clear':'a.js-file-input-btn-multiple-list-static-remove', 'data-file-preview-show-info':'true',
+                                                'data-file-preview-list-type':'list', 'class': 'custom-file-input absolute-full'
+                                            }}) }}
+                                            <span class="group-icon">
+                                                    <i class="fi fi-arrow-upload"></i>
+                                                    <i class="fi fi-circle-spin fi-spin"></i>
+                                                    </span>
+
+                                            <span>{{ 'Обрати'|trans }}</span>
+
+                                        </label>
+
+                                    </div>
+
+                                    {% if feetForm.cover.vars.errors|length > 0 %}
+                                        <div class="form-text text-danger small">
+                                            {{ form_errors(feetForm.cover) }}
+                                        </div>
+                                    {% endif %}
+                                    <div class="js-file-input-container-multiple-list-static position-relative hide-empty mt-4">
+                                        <!-- container --></div>
+
+                                    <!-- remove button -->
+                                    <div class="mt-3">
+                                        <a href="#" title="Clear Images" data-toggle="tooltip"
+                                           class="js-file-input-btn-multiple-list-static-remove hide btn btn-secondary mb-2">
+                                            <i class="fi fi-close"></i>
+                                            Clear files
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <!--/IMAGE-->
+
+                                <div class="mb-4">
+                                    {{ form_label(feetForm.description) }}
+                                    {{ form_widget(feetForm.description, {'attr': {
+                                        'class': 'form-control',
+                                        'autocomplete': 'off'
+                                    }}) }}
+                                    {% if feetForm.description.vars.errors|length > 0 %}
+                                        <div class="form-text text-danger small">{{ form_errors(feetForm.description) }}</div>
+                                    {% endif %}
+                                </div>
+
+                                <!--IMAGE ADD 2-->
+                                <!--LIST TYPE : STATIC-->
+                                <div class="mb-3">
+
+                                    {{ form_label(feetForm.gallery) }}
+                                    <div class="input-group">
+                                        <label class="btn btn-primary btn-soft cursor-pointer position-relative">
+                                            {{ form_widget(feetForm.gallery, {'attr': {
+                                                'data-file-ext':'mp3, jpg, png, gif',
+                                                'data-file-max-total-files':'10', 'data-file-ext-err-msg':'Allowed:', 'data-file-exist-err-msg':'File already exists:',
+                                                'data-file-size-err-max-msg':'Maximum allowed files:', 'data-file-toast-position':'bottom-center',
+                                                'data-file-preview-container':'.js-file-input-container-multiple-list', 'data-file-preview-img-height':'80',
+                                                'data-file-btn-clear':'a.js-file-input-btn-multiple-list-remove', 'data-file-preview-show-info':'true',
+                                                'data-file-preview-list-type':'list', 'class': 'custom-file-input absolute-full'
+                                            }}) }}
+                                            <span class="group-icon">
+                                                <i class="fi fi-arrow-upload"></i>
+                                                <i class="fi fi-circle-spin fi-spin"></i>
+                                                </span>
+
+                                            <span>Обрати</span>
+                                        </label>
+                                    </div>
+                                    {% if feetForm.gallery.vars.errors|length > 0 %}
+                                        <div class="form-text text-danger small">{{ form_errors(feetForm.gallery) }}</div>
+                                    {% endif %}
+                                    <div class="js-file-input-container-multiple-list position-relative hide-empty mt-4">
+                                        <!-- container --></div>
+
+                                    <!-- remove button -->
+                                    <div class="mt-3">
+                                        <a href="#" title="Clear Images" data-toggle="tooltip"
+                                           class="js-file-input-btn-multiple-list-remove hide btn btn-secondary mb-2">
+                                            <i class="fi fi-close"></i>
+                                            Clear files
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                                <!--/IMAGE ADD 2-->
+
+                                <div class="row">
+                                    <div class="col-12 mt-2">
+                                        <button type="submit"
+                                                class="btn btn-primary btn-block transition-hover-top">
+                                            {{ 'Зберегти'|trans }}
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- /PERSONAL DETAIL -->
+                                {{ form_end(feetForm) }}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

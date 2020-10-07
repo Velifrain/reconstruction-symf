@@ -1,0 +1,37 @@
+# Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+flysystem:
+    storages:
+        feet.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/inventory/feet'
+
+        legs.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/inventory/legs'
+
+        waist.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/inventory/waist'
+
+        chest.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/inventory/chest'
+
+        wrist.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/inventory/wrist'
+
+        hands.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/inventory/hands'
+
+        head.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public/inventory/head'

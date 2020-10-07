@@ -7,7 +7,7 @@ parameters:
     locale: uk
     # This parameter defines the codes of the locales (languages) enabled in the application
     app_locales: [uk, ru]
-    files_directory: '%kernel.project_dir%/public/assets/images/inventory'
+    upload_files: '%kernel.project_dir%'
 
 services:
     # default configuration for services in *this* file
