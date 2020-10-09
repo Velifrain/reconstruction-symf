@@ -130,6 +130,9 @@
                                     <span>Обрати</span>
                                 </label>
                             </div>
+                            {% for gallery in feet.gallery %}
+                            <img src="{{ gallery }}" alt="image" width="300">
+                            {% endfor%}
                             {% if feetFormUpdate.gallery.vars.errors|length > 0 %}
                                 <div class="form-text text-danger small">{{ form_errors(feetFormUpdate.gallery) }}</div>
                             {% endif %}

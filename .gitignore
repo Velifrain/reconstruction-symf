@@ -17,4 +17,5 @@
 
 .idea/
 data/
+feet/
 docker-compose.override.yml

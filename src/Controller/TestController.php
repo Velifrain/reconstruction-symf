@@ -29,9 +29,9 @@ class TestController extends AbstractController
      * @param FilesystemInterface $feetStorage
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      * @throws \League\Flysystem\FileExistsException
-     * @Route("/test", name="test")
+     * @Route("/test/create", name="test")
      */
-    public function index(Request $request, FilesystemInterface $feetStorage): Response
+    public function create(Request $request, FilesystemInterface $feetStorage): Response
     {
         $feet = new Feet();
         $feetForm = $this->createForm(FeetType::class, $feet);
@@ -44,7 +44,7 @@ class TestController extends AbstractController
             $feetCover = $feetForm->get('cover')->getData();
 
             if ($feetCover->isValid()) {
-                $fileCover = md5(uniqid()) . '.' . $feetCover->guessExtension();
+                $fileCover = md5(uniqid()) . '.' . $feetCover->getClientOriginalExtension();
                 $stream = fopen($feetCover->getRealPath(), 'r+');
                 $feetStorage->writeStream(DIRECTORY_SEPARATOR . $fileCover, $stream);
                 fclose($stream);
@@ -58,34 +58,29 @@ class TestController extends AbstractController
             /** @var UploadedFile $gallery */
             foreach ($feetGallery as $gallery) {
                 if ($gallery->isValid()) {
+                    $filesGallery = md5(uniqid()) . '.' . $gallery->getClientOriginalExtension();
                     $stream = fopen($gallery->getRealPath(), 'r+');
-                    $filesGallery = md5(uniqid()) . '.' . $gallery->guessExtension();
-                    // md5() уменьшает схожесть имён файлов, сгенерированных
-                    // uniqid(), которые основанный на временных отметках - генерация уникального имени файла
                     $feetStorage->writeStream(DIRECTORY_SEPARATOR . $filesGallery, $stream);
                     fclose($stream);
+
+                    $galleryFeet[] = self::PATH_TO_UPLOADED_FILE . $filesGallery;
+                    $feet->setGallery($galleryFeet);
                 }
-                $galleryFeet[] = $gallery->getRealPath();
             }
-            $feet->setGallery($galleryFeet);
+
             $em->persist($feet);
             $em->flush();
-
 
             return $this->redirectToRoute('test');
         }
 
-        if (!$feetForm->get('cover')->getData()) {
-            $feetForm->get('cover')->addError(new FormError('Поле не должно быть пустым'));
-        }
-
-        return $this->render('test/index.html.twig', [
+        return $this->render('test/create.html.twig', [
             'feetForm' => $feetForm->createView(),
         ]);
     }
 
     /**
-     * @Route("/update/{id}", name="feet_update", methods={"GET","POST"})
+     * @Route("/test/update/{id}", name="feet_update", methods={"GET","POST"})
      * @param Request $request
      * @param FilesystemInterface $feetStorage
      * @param Feet $feet
