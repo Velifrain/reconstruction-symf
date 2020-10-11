@@ -10,7 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -46,16 +48,16 @@ class FeetType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Please upload a valid File',
                     ]),
-                    new Callback([
-                        'callback' => function ($data,ExecutionContextInterface $context) {
-                            if (!$data) {
-                                $context->buildViolation('Значення не повинно бути пустим. !!!')
-                                    ->atPath('cover')
-                                    ->addViolation()
-                                ;
-                            }
-                        },
-                    ])
+//                    new Callback([
+//                        'callback' => function ($data,ExecutionContextInterface $context) {
+//                            if (!$data) {
+//                                $context->buildViolation('Значення не повинно бути пустим. !!!')
+//                                    ->atPath('cover')
+//                                    ->addViolation()
+//                                ;
+//                            }
+//                        },
+//                    ])
                 ],
             ])
             ->add('description', TextareaType::class, [
@@ -67,21 +69,20 @@ class FeetType extends AbstractType
             ])
             ->add('gallery', FileType::class, [
                 'mapped' => false,
-                'empty_data' => '',
                 'multiple' => true,
                 'constraints' => [
-                    new NotBlank([
-                        'allowNull' => true
-                    ]),
-                    new Image([
-                        'mimeTypes' => [
-                            "image/png",
-                            "image/jpeg",
-                            "image/jpg",
-                            "image/gif",
-                        ],
-                        'mimeTypesMessage' => 'Please upload a valid File',
-                    ]),
+                    new All([
+                        new NotBlank(),
+                        new Image([
+                            'mimeTypes' => [
+                                "image/png",
+                                "image/jpeg",
+                                "image/jpg",
+                                "image/gif",
+                            ],
+                            'mimeTypesMessage' => 'Please upload a valid File',
+                        ]),
+                    ])
                 ],
             ]);
     }

@@ -4,7 +4,7 @@ flysystem:
         feet.storage:
             adapter: 'local'
             options:
-                directory: '%kernel.project_dir%/public/inventory/feet'
+                directory: '%kernel.project_dir%/public/inventory/feet/'
 
         legs.storage:
             adapter: 'local'

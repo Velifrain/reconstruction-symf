@@ -8,12 +8,14 @@ use App\Form\FeetType;
 use League\Flysystem\Exception;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FilesystemInterface;
-use Symfony\Component\Form\FormError;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Psr\Log\LoggerInterface;
+
 
 /**
  * Class TestController
@@ -46,7 +48,7 @@ class TestController extends AbstractController
             if ($feetCover->isValid()) {
                 $fileCover = md5(uniqid()) . '.' . $feetCover->getClientOriginalExtension();
                 $stream = fopen($feetCover->getRealPath(), 'r+');
-                $feetStorage->writeStream(DIRECTORY_SEPARATOR . $fileCover, $stream);
+                $feetStorage->writeStream($fileCover, $stream);
                 fclose($stream);
 
                 $feet->setCover(self::PATH_TO_UPLOADED_FILE . $fileCover);
@@ -60,7 +62,7 @@ class TestController extends AbstractController
                 if ($gallery->isValid()) {
                     $filesGallery = md5(uniqid()) . '.' . $gallery->getClientOriginalExtension();
                     $stream = fopen($gallery->getRealPath(), 'r+');
-                    $feetStorage->writeStream(DIRECTORY_SEPARATOR . $filesGallery, $stream);
+                    $feetStorage->writeStream($filesGallery, $stream);
                     fclose($stream);
 
                     $galleryFeet[] = self::PATH_TO_UPLOADED_FILE . $filesGallery;
@@ -88,7 +90,7 @@ class TestController extends AbstractController
      * @throws FileExistsException
      * @throws Exception
      */
-    public function update(Request $request, Feet $feet, FilesystemInterface $feetStorage): Response
+    public function update(Request $request, Feet $feet, FilesystemInterface $feetStorage, LoggerInterface $logger): Response
     {
         $feetFormUpdate = $this->createForm(FeetType::class, $feet);
         $feetFormUpdate->handleRequest($request);
@@ -100,13 +102,12 @@ class TestController extends AbstractController
             $imageCover = $feetFormUpdate->get('cover')->getData();
 
             if ($imageCover && $imageCover->isValid()) {
-
-                $imageCoverName = md5(uniqid()) . '.' . $imageCover->guessExtension();
+                $imageCoverName = md5(uniqid()) . '.' . $imageCover->getClientOriginalExtension();
                 $stream = fopen($imageCover->getRealPath(), 'r+');
-                $feetStorage->writeStream(DIRECTORY_SEPARATOR . $imageCoverName, $stream);
+                $feetStorage->writeStream($imageCoverName, $stream);
                 fclose($stream);
 
-                if (file_exists($existingCover)) {
+                if(file_exists($existingCover)){
                     unlink($existingCover);
                 }
 
