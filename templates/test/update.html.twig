@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-
     <section class="flex-grow-1">
-        <div class="container">
-            <div class="row">
+        <div class="container"><!--container -->
+            <div class="row"><!--row -->
                 <div class="col-12 col-sm-12 col-md-12 col-lg-9">
                     <div class="col-12 col-sm-8 col-md-11 m-auto">
+                        <!-- flash messenger -->
                         {% for message in app.flashes('notice') %}
                             <div class="alert alert-success border" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -20,15 +20,6 @@
                             {{ 'Редагування'| trans }}
                         </h3>
 
-{#                        {% for error in feetFormUpdate.vars.errors.form.getErrors(true) %}#}
-{#                            <div class="form-text text-danger small">#}
-{#                                <ul>#}
-{#                                    <li>#}
-{#                                        {{ error.message }}#}
-{#                                    </li>#}
-{#                                </ul>#}
-{#                            </div>#}
-{#                        {% endfor %}#}
                         {{ form_start(feetFormUpdate, {'attr': {
                             'method': 'POST',
                             'class':'form-label-group',
@@ -52,49 +43,51 @@
                         <!--LIST TYPE : STATIC-->
                         <div class="mb-3">
                             {{ form_label(feetFormUpdate.cover) }}
-
                             <div class="input-group">
                                 <label class="btn btn-primary btn-soft cursor-pointer position-relative">
                                     {{ form_widget(feetFormUpdate.cover, {'attr': {
-                                        'data-file-ext':'mp3, jpg, png, gif',
-                                        'data-file-max-size-kb-total': '0',
+                                        'data-file-ext':'jpeg, jpg, png, gif',
+                                        'data-file-max-total-files':'1',
+                                        'data-file-ext-err-msg':'Allowed:',
+                                        'data-file-exist-err-msg':'File already exists:',
                                         'data-file-size-err-item-msg': 'File too large!',
                                         'data-file-size-err-total-msg':'Total allowed size exceeded!',
-                                        'data-file-max-total-files':'1', 'data-file-ext-err-msg':'Allowed:',
-                                        'data-file-exist-err-msg':'File already exists:',
                                         'data-file-size-err-max-msg':'Maximum allowed files:',
+
                                         'data-file-toast-position':'bottom-center',
-                                        'data-file-preview-container':'.js-file-input-container-multiple-list-static',
-                                        'data-file-preview-img-height':'80',
-                                        'data-file-btn-clear':'a.js-file-input-btn-multiple-list-static-remove',
-                                        'data-file-preview-show-info':'true',
-                                        'data-file-preview-list-type':'list',
+                                        'data-file-preview-container':'.js-file-input-container-multiple-example',
+                                        'data-file-preview-img-height':'150',
+                                        'data-file-preview-show-info':'false',
+                                        'data-file-preview-img-cover':'true',
+
+                                        'data-file-preview-img-cover':'true',
+                                        'data-file-preview-img-cover':'true',
+
                                         'class': 'custom-file-input absolute-full'
                                     }}) }}
+
                                     <span class="group-icon">
-                                                    <i class="fi fi-arrow-upload"></i>
-                                                    <i class="fi fi-circle-spin fi-spin"></i>
+                                       <i class="fi fi-arrow-upload"></i>
+                                       <i class="fi fi-circle-spin fi-spin"></i>
                                     </span>
                                     <span>{{ 'Обрати'|trans }}</span>
                                 </label>
                             </div>
-                            <img src="{{ feet.cover }}" alt="image" width="300">
+
+
+
                             {% if feetFormUpdate.cover.vars.errors|length > 0 %}
                                 <div class="form-text text-danger small">{{ form_errors(feetFormUpdate.cover) }}</div>
                             {% endif %}
+                            <!-- Ajax container : files are pushed here! -->
+                            <div class="js-file-input-container-multiple-example position-relative clearfix hide-empty">
+                                <!-- container -->
+                                <span data-id="{{ feet.id }}" data-file-name="{{ feet.cover }}"
+                                      class="js-file-input-item d-inline-block position-relative overflow-hidden text-center show-hover-container shadow-md m-2 rounded float-start">
 
-                            <div class="js-file-input-container-multiple-list-static position-relative hide-empty mt-4">
-                                <!-- container --></div>
-
-                            <!-- remove button -->
-                            <div class="mt-3">
-                                <a href="#" title="Clear Images" data-toggle="tooltip"
-                                   class="js-file-input-btn-multiple-list-static-remove hide btn btn-secondary mb-2">
-                                    <i class="fi fi-close"></i>
-                                    Clear files
-                                </a>
+                                <img src="{{ feet.cover }}" alt="image" class="rounded w--150 h--150">
+                                </span>
                             </div>
-
                         </div>
                         <!--/IMAGE-->
 
@@ -110,124 +103,74 @@
                         </div>
 
                         <!--IMAGE ADD 2-->
-                        <!--LIST TYPE : STATIC-->
+                        <!-- AJAX IMAGE -->
                         <div class="mb-3">
+                        {{ form_label(feetFormUpdate.gallery) }}
+                        <div class="input-group">
+                            <label class="btn btn-primary btn-soft cursor-pointer position-relative">
+                                {{ form_widget(feetFormUpdate.gallery, {'attr': {
+                                    'type': 'file',
+                                    'data-file-ext':'jpeg, jpg, png, gif',
+                                    'data-file-max-total-files':'6',
+                                    'data-file-ext-err-msg':'Allowed:',
+                                    'data-file-exist-err-msg':'File already exists:',
+                                    'data-file-size-err-max-msg':'Maximum allowed files:',
+                                    'data-file-toast-position':'bottom-center',
+                                    'data-file-preview-container':'.js-file-input-container-multiple-ajax-dynamic-progress',
+                                    'data-file-preview-img-height':'150',
+                                    'data-file-preview-class':'show-hover-container shadow-md m-2 rounded float-start',
+                                    'data-file-preview-img-cover':'true',
 
-                            {{ form_label(feetFormUpdate.gallery) }}
-                            {% if feet.gallery is same as(false) %}
-                            <div class="input-group">
-                                <label class="btn btn-primary btn-soft cursor-pointer position-relative">
-                                    {{ form_widget(feetFormUpdate.gallery, {'attr': {
-                                        'data-file-ext':'mp3, jpg, png, gif',
-                                        'data-file-max-total-files':'10',
-                                        'data-file-ext-err-msg':'Allowed:',
-                                        'data-file-exist-err-msg':'File already exists:',
-                                        'data-file-size-err-max-msg':'Maximum allowed files:',
-                                        'data-file-toast-position':'bottom-center',
-                                        'data-file-preview-container':'.js-file-input-container-multiple-list',
-                                        'data-file-preview-img-height':'80',
-                                        'data-file-btn-clear':'a.js-file-input-btn-multiple-list-remove',
-                                        'data-file-preview-show-info':'true',
-                                        'data-file-preview-list-type':'list',
-                                        'class': 'custom-file-input absolute-full'
-                                    }}) }}
-                                    <span class="group-icon">
-                                                <i class="fi fi-arrow-upload"></i>
-                                                <i class="fi fi-circle-spin fi-spin"></i>
-                                    </span>
-                                    <span>Обрати</span>
-                                </label>
-                            </div>
-                            {% if feetFormUpdate.gallery.vars.errors|length > 0 %}
-                                <div class="form-text text-danger small">{{ form_errors(feetFormUpdate.gallery) }}</div>
-                            {% endif %}
-                            <div class="js-file-input-container-multiple-list position-relative hide-empty mt-4">
-                                <!-- container --></div>
+                                    'data-file-ajax-upload-enable':'true',
+                                    'data-file-ajax-upload-url':'feet_ajax_upload_files',
+                                    'data-file-ajax-upload-params':'["action","ajaxUploadImage"]["data"]',
 
-                            <!-- remove button -->
-                            <div class="mt-3">
-                                <a href="#" title="Clear Images" data-toggle="tooltip"
-                                   class="js-file-input-btn-multiple-list-remove hide btn btn-secondary mb-2">
-                                    <i class="fi fi-close"></i>
-                                    Clear files
-                                </a>
-                            </div>
-                            {% else %}
-                                <!-- AJAX IMAGE -->
-                                <div class="input-group">
-                                    <label class="btn btn-primary btn-soft cursor-pointer position-relative">
-                                        {{ form_widget(feetFormUpdate.gallery, {'attr': {
-                                            'data-file-ext':'mp3, jpg, png, gif',
-                                            'data-file-max-total-files':'3',
-                                            'data-file-ext-err-msg':'Allowed:',
-                                            'data-file-exist-err-msg':'File already exists:',
-                                            'data-file-size-err-max-msg':'Maximum allowed files:',
-                                            'data-file-toast-position':'bottom-center',
-                                            'data-file-preview-container':'.js-file-input-container-multiple-list',
-                                            'data-file-preview-img-height':'80',
-                                            'data-file-btn-clear':'a.js-file-input-btn-multiple-list-remove',
-                                            'data-file-preview-show-info':'true',
-                                            'data-file-preview-list-type':'list',
+                                    'data-file-ajax-delete-enable': 'true',
+                                    'data-file-ajax-delete-url': 'feet_ajax_upload_files',
+                                    'data-file-ajax-delete-params': '["action","ajaxUploadImage"]',
 
-                                            'data-file-ajax-upload-enable':'true',
+                                    'data-file-ajax-toast-success-txt': 'Successfully Uploaded!',
+                                    'data-file-ajax-toast-error-txt': 'One or more files not uploaded!',
+                                    'data-file-ajax-callback-function': '',
+                                    'data-file-ajax-progressbar-custom': '',
+                                    'data-file-ajax-progressbar-disable': 'false',
+                                    'class': 'custom-file-input absolute-full',
+                                }}) }}
 
-                                            'data-file-ajax-delete-enable': 'true',
-
-                                            'data-file-ajax-reorder-enable':'true',
-                                            'data-file-ajax-reorder-toast-success': 'Order Saved!',
-                                            'data-file-ajax-reorder-toast-position':'bottom-center',
-
-                                            'data-file-ajax-toast-success-txt': 'Successfully Uploaded!',
-                                            'data-file-ajax-toast-error-txt': 'One or more files not uploaded!',
-                                            'data-file-ajax-callback-function': '',
-                                            'data-file-ajax-progressbar-custom': '',
-                                            'data-file-ajax-progressbar-disable': 'false',
-                                            'class': 'custom-file-input absolute-full',
-                                        }}) }}
-
-{#                                                  data-file-ajax-upload-enable="true"#}
-{#                                                  data-file-ajax-upload-url="../demo.files/php/demo.ajax_file_upload.php"#}
-{#                                                  data-file-ajax-upload-params="['action','upload']['param2','value2']"#}
-
-{#                                                  data-file-ajax-delete-enable="true"#}
-{#                                                  data-file-ajax-delete-url="../demo.files/php/demo.ajax_file_upload.php"#}
-{#                                                  data-file-ajax-delete-params="['action','delete_file']"#}
-
-{#                                                  data-file-ajax-reorder-enable="true"#}
-{#                                                  data-file-ajax-reorder-url="../demo.files/php/demo.ajax_file_upload.php"#}
-{#                                                  data-file-ajax-reorder-params="['action','reorder']"#}
-{#                                                  data-file-ajax-reorder-toast-success="Order Saved!"#}
-{#                                                  data-file-ajax-reorder-toast-position="bottom-center"#}
-
-{#                                                  data-file-ajax-toast-success-txt="Successfully Uploaded!"#}
-{#                                                  data-file-ajax-toast-error-txt="One or more files not uploaded!"#}
-{#                                                  data-file-ajax-callback-function=""#}
-{#                                                  data-file-ajax-progressbar-custom=""#}
-{#                                                  data-file-ajax-progressbar-disable="false"#}
-
-{#                                                  class="custom-file-input absolute-full">#}
-                                        <span class="group-icon">
-                                            <i class="fi fi-arrow-upload"></i>
-                                            <i class="fi fi-circle-spin fi-spin"></i>
-                                        </span>
-                                        <span>Обрати</span>
-                                    </label>
-                                </div>
-                            {% for gallery in feet.gallery %}
-                                <img src="{{ gallery }}" alt="image" width="200">
-                            {% endfor%}
-                            {% if feetFormUpdate.gallery.vars.errors|length > 0 %}
-                                <div class="form-text text-danger small">{{ form_errors(feetFormUpdate.gallery) }}</div>
-                            {% endif %}
-                                    <div class="js-file-input-container-multiple-list position-relative hide-empty mt-4"><!-- container --></div>
-
-                                </div>
-                                <!-- /AJAX IMAGE -->
-                            {% endif %}
+                                <span class="group-icon">
+                                    <i class="fi fi-arrow-upload"></i>
+                                    <i class="fi fi-circle-spin fi-spin"></i>
+                                </span>
+                                <span>Обрати</span>
+                            </label>
                         </div>
+                        {% if feetFormUpdate.gallery.vars.errors|length > 0 %}
+                            <div class="form-text text-danger small">{{ form_errors(feetFormUpdate.gallery) }}</div>
+                        {% endif %}
+                        <!--Ajax container : files are pushed here!-->
 
-                        <!--/IMAGE ADD 2-->
+                        <div class="mt-3 js-file-input-container-multiple-ajax-dynamic-progress position-relative
+                            clearfix hide-empty">
 
+                            {% for gallery in feet.gallery %}
+                                <span data-id="{{ feet.id }}" data-file-name="{{ gallery }}"
+                                      class="js-file-input-item d-inline-block position-relative overflow-hidden text-center show-hover-container shadow-md m-2 rounded float-start">
+
+                            <!-- delete button -->
+                            <a href="#"
+                               class="js-file-item-del position-absolute absolute-top show-hover-item left-0 z-index-2">
+                                <span class="d-inline-block btn btn-sm bg-danger text-white pt--4 pb--4 pl--10 pr--10 m--1">
+                                    <i class="fi fi-close m-0"></i>
+                                </span>
+                            </a>
+                                <img src="{{ gallery }}" alt="image" class="w--150">
+                                </span>
+
+                                <!-- /PREADDED FILES -->
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- /AJAX IMAGE -->
                         <div class="row">
                             <div class="col-12 mt-2">
                                 <button type="submit" class="btn btn-primary btn-block transition-hover-top">
@@ -235,14 +178,12 @@
                                 </button>
                             </div>
                         </div>
-
-                        <!-- /PERSONAL DETAIL -->
-                        {{ form_end(feetFormUpdate) }}
-
-                    </div>
                 </div>
-            </div>
-        </div>
+                <!--/IMAGE ADD 2-->
+                <!-- /PERSONAL DETAIL -->
+                {{ form_end(feetFormUpdate) }}
+                </div>
+            </div><!--/row -->
+        </div><!--/container -->
     </section>
-
 {% endblock %}

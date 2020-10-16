@@ -9,7 +9,14 @@
             <div class="row">
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-
+                    {% for message in app.flashes('notice') %}
+                        <div class="alert alert-success border" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span class="fi fi-close" aria-hidden="true"></span>
+                            </button>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
                     <!-- UPLOAD FILES TAB -->
                     <div id="tab_upload" class="tab-pane border bt-0 p-4 shadow-xs">
                         <div class="row">
@@ -46,12 +53,18 @@
 
                                             {{ form_widget(feetForm.cover, {'attr': {
                                                 'data-file-ext':'jpg, jpeg, png, gif',
-                                                'data-file-max-size-kb-total': '0', 'data-file-size-err-item-msg': 'File too large!', 'data-file-size-err-total-msg':'Total allowed size exceeded!',
+                                                'data-file-max-size-kb-total': '0',
+                                                'data-file-size-err-item-msg': 'File too large!',
+                                                'data-file-size-err-total-msg':'Total allowed size exceeded!',
                                                 'data-file-exist-err-msg':'File already exists:',
-                                                'data-file-size-err-max-msg':'Maximum allowed files:', 'data-file-toast-position':'bottom-center',
-                                                'data-file-preview-container':'.js-file-input-container-multiple-list-static', 'data-file-preview-img-height':'80',
-                                                'data-file-btn-clear':'a.js-file-input-btn-multiple-list-static-remove', 'data-file-preview-show-info':'true',
-                                                'data-file-preview-list-type':'list', 'class': 'custom-file-input absolute-full'
+                                                'data-file-size-err-max-msg':'Maximum allowed files:',
+                                                'data-file-toast-position':'bottom-center',
+                                                'data-file-preview-container':'.js-file-input-container-multiple-list-static',
+                                                'data-file-preview-img-height':'80',
+                                                'data-file-btn-clear':'a.js-file-input-btn-multiple-list-static-remove',
+                                                'data-file-preview-show-info':'true',
+                                                'data-file-preview-list-type':'list',
+                                                'class': 'custom-file-input absolute-full'
                                             }}) }}
                                             <span class="group-icon">
                                                     <i class="fi fi-arrow-upload"></i>
@@ -104,11 +117,16 @@
                                         <label class="btn btn-primary btn-soft cursor-pointer position-relative">
                                             {{ form_widget(feetForm.gallery, {'attr': {
                                                 'data-file-ext':'jpeg, jpg, png, gif',
-                                                'data-file-max-total-files':'3','data-file-exist-err-msg':'File already exists:',
-                                                'data-file-size-err-max-msg':'Maximum allowed files:', 'data-file-toast-position':'bottom-center',
-                                                'data-file-preview-container':'.js-file-input-container-multiple-list', 'data-file-preview-img-height':'80',
-                                                'data-file-btn-clear':'a.js-file-input-btn-multiple-list-remove', 'data-file-preview-show-info':'true',
-                                                'data-file-preview-list-type':'list', 'class': 'custom-file-input absolute-full'
+                                                'data-file-max-total-files':'3',
+                                                'data-file-exist-err-msg':'File already exists:',
+                                                'data-file-size-err-max-msg':'Maximum allowed files:',
+                                                'data-file-toast-position':'bottom-center',
+                                                'data-file-preview-container':'.js-file-input-container-multiple-list',
+                                                'data-file-preview-img-height':'80',
+                                                'data-file-btn-clear':'a.js-file-input-btn-multiple-list-remove',
+                                                'data-file-preview-show-info':'true',
+                                                'data-file-preview-list-type':'list', 'class':
+                                                'custom-file-input absolute-full'
                                             }}) }}
                                             <span class="group-icon">
                                                 <i class="fi fi-arrow-upload"></i>

@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
@@ -48,16 +50,28 @@ class FeetType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Please upload a valid File',
                     ]),
-//                    new Callback([
-//                        'callback' => function ($data,ExecutionContextInterface $context) {
-//                            if (!$data) {
-//                                $context->buildViolation('Значення не повинно бути пустим. !!!')
-//                                    ->atPath('cover')
-//                                    ->addViolation()
-//                                ;
-//                            }
-//                        },
-//                    ])
+                    new Callback([
+                        'callback' => function ($object, ExecutionContextInterface $context) {
+                            /** @var Feet $feet */
+                            $feet = $context->getRoot()->getData();
+                            $require = false;
+                            if ($feet->getId()) {
+                                if (!$object && !$feet->getCover()) {
+                                    $require = true;
+                                }
+                            } else {
+                                if (!$object) {
+                                    $require = true;
+                                }
+                            }
+
+                            if ($require) {
+                                $context->buildViolation('Значення не повинно бути пустим.')
+                                    ->atPath('cover')
+                                    ->addViolation();
+                            }
+                        },
+                    ])
                 ],
             ])
             ->add('description', TextareaType::class, [
@@ -84,7 +98,39 @@ class FeetType extends AbstractType
                         ]),
                     ])
                 ],
-            ]);
+            ])
+            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
+                $feetGallery = $event->getData();
+                $form = $event->getForm();
+
+                if (!$feetGallery) {
+                    return;
+                }
+
+                if (isset($feetGallery['gallery']) && $feetGallery['gallery']) {
+                    $form->add('gallery', FileType::class,[
+                        'mapped' => false,
+                        'multiple' => true,
+                        'constraints' => [
+                            new All([
+                                new NotBlank(),
+                                new Image([
+                                    'mimeTypes' => [
+                                        "image/png",
+                                        "image/jpeg",
+                                        "image/jpg",
+                                        "image/gif",
+                                    ],
+                                    'mimeTypesMessage' => 'Please upload a valid File',
+                                ]),
+                            ])
+                        ],
+                    ]);
+                } else {
+                    unset($feetGallery['gallery']);
+                    $event->setData($feetGallery);
+                }
+            });
     }
 
     public function configureOptions(OptionsResolver $resolver)
