@@ -9,12 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\All;
 use Symfony\Component\Validator\Constraints\Callback;
-use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
@@ -84,6 +81,7 @@ class FeetType extends AbstractType
             ->add('gallery', FileType::class, [
                 'mapped' => false,
                 'multiple' => true,
+                'allow_extra_fields' => true,
                 'constraints' => [
                     new All([
                         new NotBlank(),
@@ -98,39 +96,7 @@ class FeetType extends AbstractType
                         ]),
                     ])
                 ],
-            ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
-                $feetGallery = $event->getData();
-                $form = $event->getForm();
-
-                if (!$feetGallery) {
-                    return;
-                }
-
-                if (isset($feetGallery['gallery']) && $feetGallery['gallery']) {
-                    $form->add('gallery', FileType::class,[
-                        'mapped' => false,
-                        'multiple' => true,
-                        'constraints' => [
-                            new All([
-                                new NotBlank(),
-                                new Image([
-                                    'mimeTypes' => [
-                                        "image/png",
-                                        "image/jpeg",
-                                        "image/jpg",
-                                        "image/gif",
-                                    ],
-                                    'mimeTypesMessage' => 'Please upload a valid File',
-                                ]),
-                            ])
-                        ],
-                    ]);
-                } else {
-                    unset($feetGallery['gallery']);
-                    $event->setData($feetGallery);
-                }
-            });
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

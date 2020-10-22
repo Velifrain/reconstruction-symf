@@ -8,7 +8,7 @@ use App\Form\FeetType;
 use League\Flysystem\Exception;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FilesystemInterface;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,10 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\All;
-use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 /**
@@ -35,81 +33,74 @@ class TestController extends AbstractController
      * @param Feet $feet
      * @param FilesystemInterface $feetStorage
      * @param Request $request
-     * @Route("/test/update/file/{id}", name="feet_ajax_upload_files", methods={"GET"})
-     * @throws FileExistsException
+     * @Route("/test/update/{id}/file/", name="feet_ajax_upload_files", methods={"POST"})
      * @return JsonResponse
+     * @throws FileExistsException
      */
-    public function ajaxUploadImage(Request $request, Feet $feet, FilesystemInterface $feetStorage): JsonResponse
+    public function ajaxUploadImage(Request $request, Feet $feet, FilesystemInterface $feetStorage, ValidatorInterface  $validator): JsonResponse
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createFormBuilder($feet)
-            ->add('gallery', FileType::class, [
-                'data_class' => Feet::class,
-                'mapped' => false,
-                'multiple' => true,
-                'constraints' => [
-                    new All([
-                        new NotBlank(),
-                        new Image([
-                            'mimeTypes' => [
-                                "image/png",
-                                "image/jpeg",
-                                "image/jpg",
-                                "image/gif",
-                            ],
-                            'mimeTypesMessage' => 'Please upload a valid File',
-                        ]),
-                    ])
-                ],
-            ])
-            ->getForm();
-
-
+        $form = $this->createForm(FeetType::class, $feet);
         $form->handleRequest($request);
 
-        // check POST and AJAX only$ (if not - throw Exception)
-        if ($request->isMethod('GET')) {
+//        // check POST and AJAX only$ (if not - throw Exception)
+        if ($request->isXmlHttpRequest() && $request->isMethod('POST')) {
 
-            if ($request->isXmlHttpRequest()) {
-                // check constraints (if not - return error message(s))
-                if ($form->isSubmitted() && $form->isValid()) {
-                    // save file (if not - return error message(s))
-                    /** @var UploadedFile $imageCover */
-                    $image = $form->get('gallery')->getData();
+            // $errorsValidator = $validator->validate($form);
 
-                    if ($image && $image->isValid()) {
-
-                        $imageCoverName = md5(uniqid()) . '.' . $imageCover->getClientOriginalExtension();
-                        $stream = fopen($imageCover->getRealPath(), 'r+');
-                        $feetStorage->writeStream($imageCoverName, $stream);
-                        fclose($stream);
-
-                        $feet->setCover(self::PATH_TO_UPLOADED_FILE . $imageCoverName);
-                    }
-
-                    // save feet (if not - delete file and return error message(s))
-                    $em->persist($feet);
-                    $em->flush();
-
-                } else {
-                    // TODO get error
-                }
-
-            } else {
-                //throw new BadRequestHttpException('Not Ajax');
+            // check constraints (if not - return error message(s))
+            $errors = $validator->validate($form);
+            if (count($errors) > 0) {
+                //$error = $this->getErrorMessages($form);
+                $errorsString = (string) $errors;
+                return new JsonResponse($errorsString, 400);
             }
+//            if($form->isSubmitted() && $form->isValid()){
+//
+//                // save file (if not - return error message(s))
+//                /** @var UploadedFile $image */
+//                $image = $form->get('gallery')->getData();
+//
+//                // save feet (if not - delete file and return error message(s))
+//                $em = $this->getDoctrine()->getManager();
+//                $em->persist($feet);
+//                $em->flush();
+//
+//            } else {
+//                return new JsonResponse($this->getErrorMessages($form), 400);
+//            }
+//
         } else {
-            throw new BadRequestHttpException('Not POST');
+            throw new BadRequestHttpException();
         }
 
-            return new JsonResponse([
-                'file_list' => [
-                    'data' => $feet->getGallery(),
-                ]
-            ]);
 
+
+        return new JsonResponse([
+            'file_list' => [
+                'data' => $feet->getGallery(),
+            ],
+
+        ]);
     }
+
+    protected function getErrorMessages(FormInterface $form)
+    {
+        $errors = [];
+
+        foreach ($form->getErrors() as $key => $error) {
+            $errors[] = $error->getMessage();
+        }
+
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+            }
+        }
+
+        return $errors;
+    }
+
 
     /**
      * @param Request $request

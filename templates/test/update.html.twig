@@ -80,10 +80,10 @@
                                 <div class="form-text text-danger small">{{ form_errors(feetFormUpdate.cover) }}</div>
                             {% endif %}
                             <!-- Ajax container : files are pushed here! -->
-                            <div class="js-file-input-container-multiple-example position-relative clearfix hide-empty">
+                            <div class="mt-3 js-file-input-container-multiple-example position-relative clearfix hide-empty">
                                 <!-- container -->
-                                <span data-id="{{ feet.id }}" data-file-name="{{ feet.cover }}"
-                                      class="js-file-input-item d-inline-block position-relative overflow-hidden text-center show-hover-container shadow-md m-2 rounded float-start">
+                                <span data-id="{{ feet.id }}" data-file-name="{{ feet.cover[16:] }}"
+                                      class="mt-2 js-file-input-item d-inline-block position-relative overflow-hidden text-center show-hover-container shadow-md rounded float-start">
 
                                 <img src="{{ feet.cover }}" alt="image" class="rounded w--150 h--150">
                                 </span>
@@ -109,9 +109,9 @@
                         <div class="input-group">
                             <label class="btn btn-primary btn-soft cursor-pointer position-relative">
                                 {{ form_widget(feetFormUpdate.gallery, {'attr': {
-                                    'type': 'file',
                                     'data-file-ext':'jpeg, jpg, png, gif',
                                     'data-file-max-total-files':'6',
+                                    'data-file-max-size-kb-total': '40240',
                                     'data-file-ext-err-msg':'Allowed:',
                                     'data-file-exist-err-msg':'File already exists:',
                                     'data-file-size-err-max-msg':'Maximum allowed files:',
@@ -122,12 +122,9 @@
                                     'data-file-preview-img-cover':'true',
 
                                     'data-file-ajax-upload-enable':'true',
-                                    'data-file-ajax-upload-url':'feet_ajax_upload_files',
-                                    'data-file-ajax-upload-params':'["action","ajaxUploadImage"]["data"]',
-
+                                    'data-file-ajax-upload-url': path('feet_ajax_upload_files', {id: feet.id}),
                                     'data-file-ajax-delete-enable': 'true',
                                     'data-file-ajax-delete-url': 'feet_ajax_upload_files',
-                                    'data-file-ajax-delete-params': '["action","ajaxUploadImage"]',
 
                                     'data-file-ajax-toast-success-txt': 'Successfully Uploaded!',
                                     'data-file-ajax-toast-error-txt': 'One or more files not uploaded!',
@@ -136,29 +133,30 @@
                                     'data-file-ajax-progressbar-disable': 'false',
                                     'class': 'custom-file-input absolute-full',
                                 }}) }}
-
                                 <span class="group-icon">
                                     <i class="fi fi-arrow-upload"></i>
                                     <i class="fi fi-circle-spin fi-spin"></i>
                                 </span>
+
                                 <span>Обрати</span>
                             </label>
                         </div>
                         {% if feetFormUpdate.gallery.vars.errors|length > 0 %}
                             <div class="form-text text-danger small">{{ form_errors(feetFormUpdate.gallery) }}</div>
                         {% endif %}
+
                         <!--Ajax container : files are pushed here!-->
 
                         <div class="mt-3 js-file-input-container-multiple-ajax-dynamic-progress position-relative
                             clearfix hide-empty">
 
                             {% for gallery in feet.gallery %}
-                                <span data-id="{{ feet.id }}" data-file-name="{{ gallery }}"
-                                      class="js-file-input-item d-inline-block position-relative overflow-hidden text-center show-hover-container shadow-md m-2 rounded float-start">
+                                <span data-id="{{ feet.id }}" data-file-name="{{ gallery[16:] }}"
+                                      class="{{ feet.id is same as(true)? 'mr-2': '' }} mt-2 mb-4 js-file-input-item d-inline-block position-relative overflow-hidden text-center show-hover-container shadow-md rounded float-start">
 
                             <!-- delete button -->
-                            <a href="#"
-                               class="js-file-item-del position-absolute absolute-top show-hover-item left-0 z-index-2">
+
+                            <a href="#" class="js-file-item-del position-absolute absolute-top show-hover-item left-0 z-index-2">
                                 <span class="d-inline-block btn btn-sm bg-danger text-white pt--4 pb--4 pl--10 pr--10 m--1">
                                     <i class="fi fi-close m-0"></i>
                                 </span>
@@ -169,8 +167,11 @@
                                 <!-- /PREADDED FILES -->
                             {% endfor %}
                         </div>
-                    </div>
-                    <!-- /AJAX IMAGE -->
+                            {% if feetFormUpdate.vars.errors|length > 0 %}
+                                <div class="form-text text-danger small"> {{ form_errors(feetFormUpdate) }}</div>
+                            {% endif %}
+                        </div>
+                         <!-- /AJAX IMAGE -->
                         <div class="row">
                             <div class="col-12 mt-2">
                                 <button type="submit" class="btn btn-primary btn-block transition-hover-top">
@@ -178,10 +179,12 @@
                                 </button>
                             </div>
                         </div>
+
+                        {{ form_end(feetFormUpdate) }}
                 </div>
                 <!--/IMAGE ADD 2-->
                 <!-- /PERSONAL DETAIL -->
-                {{ form_end(feetFormUpdate) }}
+
                 </div>
             </div><!--/row -->
         </div><!--/container -->

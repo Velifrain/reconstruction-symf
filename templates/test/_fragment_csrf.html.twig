@@ -1,0 +1,3 @@
+<form method="post" action="{{ path('feet_update', {'id': feet.id}) }}">
+    <input type="hidden" name="token" value="{{ csrf_token('update' ~ feet.id) }}">
+</form>
