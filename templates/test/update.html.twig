@@ -110,11 +110,14 @@
                             <label class="btn btn-primary btn-soft cursor-pointer position-relative">
                                 {{ form_widget(feetFormUpdate.gallery, {'attr': {
                                     'data-file-ext':'jpeg, jpg, png, gif',
-                                    'data-file-max-total-files':'6',
-                                    'data-file-max-size-kb-total': '40240',
+                                    'data-file-max-size-kb-per-file': '2500',
+                                    'data-file-max-total-files':'4',
+                                    'data-file-max-size-kb-total': '0',
                                     'data-file-ext-err-msg':'Allowed:',
                                     'data-file-exist-err-msg':'File already exists:',
                                     'data-file-size-err-max-msg':'Maximum allowed files:',
+                                    'data-file-size-err-total-msg': 'Total allowed size exceeded!',
+                                    'data-file-size-err-item-msg': 'File too large!',
                                     'data-file-toast-position':'bottom-center',
                                     'data-file-preview-container':'.js-file-input-container-multiple-ajax-dynamic-progress',
                                     'data-file-preview-img-height':'150',
@@ -123,6 +126,7 @@
 
                                     'data-file-ajax-upload-enable':'true',
                                     'data-file-ajax-upload-url': path('feet_ajax_upload_files', {id: feet.id}),
+
                                     'data-file-ajax-delete-enable': 'true',
                                     'data-file-ajax-delete-url': 'feet_ajax_upload_files',
 
@@ -162,6 +166,7 @@
                                 </span>
                             </a>
                                 <img src="{{ gallery }}" alt="image" class="w--150">
+
                                 </span>
 
                                 <!-- /PREADDED FILES -->

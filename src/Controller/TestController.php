@@ -8,7 +8,6 @@ use App\Form\FeetType;
 use League\Flysystem\Exception;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FilesystemInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,7 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Validator\Constraints\All;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
@@ -34,73 +35,68 @@ class TestController extends AbstractController
      * @param FilesystemInterface $feetStorage
      * @param Request $request
      * @Route("/test/update/{id}/file/", name="feet_ajax_upload_files", methods={"POST"})
+     * @param ValidatorInterface $validator
      * @return JsonResponse
      * @throws FileExistsException
      */
-    public function ajaxUploadImage(Request $request, Feet $feet, FilesystemInterface $feetStorage, ValidatorInterface  $validator): JsonResponse
+    public function ajaxUploadImage(
+        Request $request, Feet $feet,
+        FilesystemInterface $feetStorage,
+        ValidatorInterface $validator): JsonResponse
     {
-
-        $form = $this->createForm(FeetType::class, $feet);
-        $form->handleRequest($request);
-
-//        // check POST and AJAX only$ (if not - throw Exception)
-        if ($request->isXmlHttpRequest() && $request->isMethod('POST')) {
-
-            // $errorsValidator = $validator->validate($form);
-
-            // check constraints (if not - return error message(s))
-            $errors = $validator->validate($form);
-            if (count($errors) > 0) {
-                //$error = $this->getErrorMessages($form);
-                $errorsString = (string) $errors;
-                return new JsonResponse($errorsString, 400);
-            }
-//            if($form->isSubmitted() && $form->isValid()){
-//
-//                // save file (if not - return error message(s))
-//                /** @var UploadedFile $image */
-//                $image = $form->get('gallery')->getData();
-//
-//                // save feet (if not - delete file and return error message(s))
-//                $em = $this->getDoctrine()->getManager();
-//                $em->persist($feet);
-//                $em->flush();
-//
-//            } else {
-//                return new JsonResponse($this->getErrorMessages($form), 400);
-//            }
-//
-        } else {
-            throw new BadRequestHttpException();
+        if (!$request->isXmlHttpRequest()) {
+            throw new BadRequestHttpException('Only ajax');
         }
+        // получить загруженый файл галереи если есть
+        $files = $request->files->get('feet')['gallery'] ?? [];
 
-
-
-        return new JsonResponse([
-            'file_list' => [
-                'data' => $feet->getGallery(),
-            ],
-
+        $constraint = new All([
+                new NotBlank(),
+                new Image([
+                    'mimeTypes' => [
+                        "image/png",
+                        "image/jpg",
+                        "image/jpeg",
+                        "image/gif",
+                    ],
+                    'mimeTypesMessage' => 'Please upload a valid Files',
+                ])
         ]);
-    }
 
-    protected function getErrorMessages(FormInterface $form)
-    {
-        $errors = [];
+        $errors = $validator->validate(
+            $files,
+            $constraint
+        //[] валідація на коллекці файлів
+        );
 
-        foreach ($form->getErrors() as $key => $error) {
-            $errors[] = $error->getMessage();
-        }
+        if (0 === count($errors)) {
+            // збереження файлів
+            $filesFeet = $feet->getGallery();
+            foreach ($files as $file) {
+                $fileName = md5(uniqid()) . '.' . $file->getClientOriginalExtension();
+                $stream = fopen($file->getRealPath(), 'r+');
+                $feetStorage->writeStream($fileName, $stream);
+                fclose($stream);
 
-        foreach ($form->all() as $child) {
-            if (!$child->isValid()) {
-                $errors[$child->getName()] = $this->getErrorMessages($child);
+                $filesFeet[] = self::PATH_TO_UPLOADED_FILE . $fileName;
             }
+            $feet->setGallery($filesFeet);
+            $this->getDoctrine()->getManager()->flush();
+
+            // повернення списку файлів
+            return new JsonResponse([
+                'filesFeet' => [
+                    'image' => $feet->getId(),
+                ]
+            ]);
+        } else {
+            // обробка помилки
+
+            // повернення помилки??? як правильно зробити?
+            $errorsString = (string)$errors;
+            return new JsonResponse($errorsString, 400);
         }
-
-        return $errors;
     }
-
 
     /**
      * @param Request $request
@@ -129,7 +125,6 @@ class TestController extends AbstractController
                 $feet->setCover(self::PATH_TO_UPLOADED_FILE . $fileCover);
             }
 
-
             $galleryFeet = [];
 
             $feetGallery = $feetForm->get('gallery')->getData();
@@ -145,7 +140,6 @@ class TestController extends AbstractController
                     $feet->setGallery($galleryFeet);
                 }
             }
-
             $em->persist($feet);
             $em->flush();
             $this->addFlash(
@@ -182,8 +176,9 @@ class TestController extends AbstractController
             $imageCover = $feetFormUpdate->get('cover')->getData();
 
             if ($imageCover && $imageCover->isValid()) {
-                $feetStorage->has($existingCover);
-                $feetStorage->delete($existingCover);
+                if ($feetStorage->has($existingCover)) {
+                    $feetStorage->delete($existingCover);
+                }
 
                 $imageCoverName = md5(uniqid()) . '.' . $imageCover->getClientOriginalExtension();
                 $stream = fopen($imageCover->getRealPath(), 'r+');
@@ -195,25 +190,24 @@ class TestController extends AbstractController
                 $feet->setCover($feet->getCover());
             }
 
-            $imageGallery = $feetFormUpdate->get('gallery')->getData();
-            $galleryFeet = [];
+            $galleryImageOldNew = $feet->getGallery();
 
-            /** @var UploadedFile $gallery */
-            foreach ($imageGallery as $gallery) {
-                if ($gallery->isValid()) {
-//                    if (file_exists($existingCover)) {
-//                        $feetStorage->delete(substr($feet->getCover(), 16));
-//                    }
-                    $imagesGalleryName = md5(uniqid()) . '.' . $gallery->getClientOriginalExtension();
-                    $stream = fopen($gallery->getRealPath(), 'r+');
-                    $feetStorage->putStream($imagesGalleryName, $stream);
-                    fclose($stream);
+            if($request->isXmlHttpRequest()) {
+                $imageGallery = $feetFormUpdate->get('gallery')->getData();
+                /** @var UploadedFile $gallery */
+                foreach ($imageGallery as $gallery) {
+                    if ($gallery->isValid()) {
 
-                    $galleryFeet[] = self::PATH_TO_UPLOADED_FILE . $imagesGalleryName;
-                    $feet->setGallery($galleryFeet);
+                        $imagesGalleryName = md5(uniqid()) . '.' . $gallery->getClientOriginalExtension();
+                        $stream = fopen($gallery->getRealPath(), 'r+');
+                        $feetStorage->putStream($imagesGalleryName, $stream);
+                        fclose($stream);
+
+                        $galleryImageOldNew[] = self::PATH_TO_UPLOADED_FILE . $imagesGalleryName;
+                        $feet->setGallery($galleryImageOldNew);
+                    }
                 }
             }
-
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                 'notice',
