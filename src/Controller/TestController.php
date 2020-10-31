@@ -7,6 +7,7 @@ use App\Entity\Feet;
 use App\Form\FeetType;
 use League\Flysystem\Exception;
 use League\Flysystem\FileExistsException;
+use League\Flysystem\FileNotFoundException;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,16 +52,16 @@ class TestController extends AbstractController
         $files = $request->files->get('feet')['gallery'] ?? [];
 
         $constraint = new All([
-                new NotBlank(),
-                new Image([
-                    'mimeTypes' => [
-                        "image/png",
-                        "image/jpg",
-                        "image/jpeg",
-                        "image/gif",
-                    ],
-                    'mimeTypesMessage' => 'Please upload a valid Files',
-                ])
+            new NotBlank(),
+            new Image([
+                'mimeTypes' => [
+                    "image/png",
+                    "image/jpg",
+                    "image/jpeg",
+                    "image/gif",
+                ],
+                'mimeTypesMessage' => 'Please upload a valid Files',
+            ])
         ]);
 
         $errors = $validator->validate(
@@ -96,6 +97,36 @@ class TestController extends AbstractController
             $errorsString = (string)$errors;
             return new JsonResponse($errorsString, 400);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param Feet $feet
+     * @param FilesystemInterface $feetStorage
+     * @return JsonResponse
+     * @throws FileNotFoundException
+     * @Route("/test/delete/{id}", name="feet_delete", methods={"POST"})
+     */
+    public function deleteAjaxFiles(Request $request, Feet $feet, FilesystemInterface $feetStorage)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if ($request->isXmlHttpRequest()) {
+            $result = [];
+            $valueFile = '/inventory/feet/'. $request->request->get('file_name');
+            foreach ($feet->getGallery() as $item => $value) {
+                if($valueFile == $value){
+                    unset($item[$valueFile]);
+                } else {
+                    $result[] = $value;
+                }
+
+            }
+            $feet->setGallery($result);
+            $em->flush();
+
+        }
+
+        return new JsonResponse('');
     }
 
     /**
@@ -192,7 +223,7 @@ class TestController extends AbstractController
 
             $galleryImageOldNew = $feet->getGallery();
 
-            if($request->isXmlHttpRequest()) {
+            if ($request->isXmlHttpRequest()) {
                 $imageGallery = $feetFormUpdate->get('gallery')->getData();
                 /** @var UploadedFile $gallery */
                 foreach ($imageGallery as $gallery) {
