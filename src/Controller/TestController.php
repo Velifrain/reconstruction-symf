@@ -58,19 +58,18 @@ class TestController extends AbstractController
                     "image/png",
                     "image/jpg",
                     "image/jpeg",
-                    "image/gif",
                 ],
-                'mimeTypesMessage' => 'Please upload a valid Files',
-            ])
+                'mimeTypesMessage' => 'Please upload a valid Files: png, jpeg, jpg',
+            ]),
         ]);
+        $errorsArr = [];
 
-        $errors = $validator->validate(
+        $errorsValidator = $validator->validate(
             $files,
             $constraint
-        //[] валідація на коллекці файлів
         );
 
-        if (0 === count($errors)) {
+        if (0 === count($errorsValidator)) {
             // збереження файлів
             $filesFeet = $feet->getGallery();
             foreach ($files as $file) {
@@ -86,16 +85,18 @@ class TestController extends AbstractController
 
             // повернення списку файлів
             return new JsonResponse([
-                'filesFeet' => [
-                    'image' => $feet->getId(),
-                ]
+                    'files' => $filesFeet,
             ]);
         } else {
             // обробка помилки
-
+            foreach ($errorsValidator as $error) {
+                array_push($errorsArr, $error->getMessage());
+            }
+            //$errorStr = (string) $errorsValidator;
             // повернення помилки??? як правильно зробити?
-            $errorsString = (string)$errors;
-            return new JsonResponse($errorsString, 400);
+            return new JsonResponse([
+                'errors' => $errorsArr,
+            ]);
         }
     }
 
@@ -109,24 +110,31 @@ class TestController extends AbstractController
      */
     public function deleteAjaxFiles(Request $request, Feet $feet, FilesystemInterface $feetStorage)
     {
-        $em = $this->getDoctrine()->getManager();
+        $valueFile = '/inventory/feet/' . $request->request->get('file_name') ?? '';
+        $fileId = $request->request->get('file_id');
         if ($request->isXmlHttpRequest()) {
             $result = [];
-            $valueFile = '/inventory/feet/'. $request->request->get('file_name');
+            //$valueFile = '/inventory/feet/'. $request->request->get('file_name');
             foreach ($feet->getGallery() as $item => $value) {
-                if($valueFile == $value){
+                if ($valueFile == $value) {
                     unset($item[$valueFile]);
+                    if ($feetStorage->has(substr($value, 16))) {
+                        $feetStorage->delete(substr($value, 16));
+                    }
                 } else {
                     $result[] = $value;
                 }
-
             }
             $feet->setGallery($result);
-            $em->flush();
-
+            $this->getDoctrine()->getManager()->flush();
         }
 
-        return new JsonResponse('');
+        return new JsonResponse([
+            'filesFeet' => [
+                'file_name' => $valueFile,
+                'file_id' => $fileId,
+            ]
+        ]);
     }
 
     /**
@@ -210,7 +218,6 @@ class TestController extends AbstractController
                 if ($feetStorage->has($existingCover)) {
                     $feetStorage->delete($existingCover);
                 }
-
                 $imageCoverName = md5(uniqid()) . '.' . $imageCover->getClientOriginalExtension();
                 $stream = fopen($imageCover->getRealPath(), 'r+');
                 $feetStorage->writeStream($imageCoverName, $stream);
@@ -221,24 +228,6 @@ class TestController extends AbstractController
                 $feet->setCover($feet->getCover());
             }
 
-            $galleryImageOldNew = $feet->getGallery();
-
-            if ($request->isXmlHttpRequest()) {
-                $imageGallery = $feetFormUpdate->get('gallery')->getData();
-                /** @var UploadedFile $gallery */
-                foreach ($imageGallery as $gallery) {
-                    if ($gallery->isValid()) {
-
-                        $imagesGalleryName = md5(uniqid()) . '.' . $gallery->getClientOriginalExtension();
-                        $stream = fopen($gallery->getRealPath(), 'r+');
-                        $feetStorage->putStream($imagesGalleryName, $stream);
-                        fclose($stream);
-
-                        $galleryImageOldNew[] = self::PATH_TO_UPLOADED_FILE . $imagesGalleryName;
-                        $feet->setGallery($galleryImageOldNew);
-                    }
-                }
-            }
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                 'notice',

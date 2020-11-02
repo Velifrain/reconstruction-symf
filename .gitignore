@@ -17,5 +17,4 @@
 
 .idea/
 data/
-/public/inventory/
 docker-compose.override.yml

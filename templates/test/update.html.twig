@@ -46,7 +46,7 @@
                             <div class="input-group">
                                 <label class="btn btn-primary btn-soft cursor-pointer position-relative">
                                     {{ form_widget(feetFormUpdate.cover, {'attr': {
-                                        'data-file-ext':'jpeg, jpg, png, gif',
+                                        'data-file-ext':'jpeg, jpg, png',
                                         'data-file-max-total-files':'1',
                                         'data-file-ext-err-msg':'Allowed:',
                                         'data-file-exist-err-msg':'File already exists:',
@@ -109,7 +109,7 @@
                         <div class="input-group">
                             <label class="btn btn-primary btn-soft cursor-pointer position-relative">
                                 {{ form_widget(feetFormUpdate.gallery, {'attr': {
-                                    'data-file-ext':'jpeg, jpg, png, gif',
+                                    'data-file-ext':'jpeg, jpg, png, txt',
                                     'data-file-max-size-kb-per-file': '2500',
                                     'data-file-max-total-files':'4',
                                     'data-file-max-size-kb-total': '0',
@@ -129,6 +129,7 @@
 
                                     'data-file-ajax-delete-enable': 'true',
                                     'data-file-ajax-delete-url': path('feet_delete', {'id': feet.id, 'gallery': feet.gallery}),
+                                    'data-file-ajax-delete-params': "['file_name', 'file_id']",
 
                                     'data-file-ajax-toast-success-txt': 'Successfully Uploaded!',
                                     'data-file-ajax-toast-error-txt': 'One or more files not uploaded!',
@@ -158,7 +159,7 @@
                                       class="{{ feet.id is same as(true)? 'mr-2': '' }} mt-2 mb-4 js-file-input-item d-inline-block position-relative overflow-hidden text-center show-hover-container shadow-md rounded float-start">
 
                             <!-- delete button -->
-                            <a href="{{ path('feet_delete', {'id': feet.id, 'gallery': gallery}) }}" class="js-file-item-del position-absolute absolute-top show-hover-item left-0 z-index-2">
+                            <a href="#" class="js-file-item-del position-absolute absolute-top show-hover-item left-0 z-index-2">
                                 <span class="d-inline-block btn btn-sm bg-danger text-white pt--4 pb--4 pl--10 pr--10 m--1">
                                     <i class="fi fi-close m-0"></i>
                                 </span>
