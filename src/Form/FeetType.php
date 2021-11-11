@@ -47,28 +47,6 @@ class FeetType extends AbstractType
                         ],
                         'mimeTypesMessage' => 'Please upload a valid File',
                     ]),
-                    new Callback([
-                        'callback' => function ($object, ExecutionContextInterface $context) {
-                            /** @var Feet $feet */
-                            $feet = $context->getRoot()->getData();
-                            $require = false;
-                            if ($feet->getId()) {
-                                if (!$object && !$feet->getCover()) {
-                                    $require = true;
-                                }
-                            } else {
-                                if (!$object) {
-                                    $require = true;
-                                }
-                            }
-
-                            if ($require) {
-                                $context->buildViolation('Значення не повинно бути пустим.')
-                                    ->atPath('cover')
-                                    ->addViolation();
-                            }
-                        },
-                    ])
                 ],
             ])
             ->add('description', TextareaType::class, [

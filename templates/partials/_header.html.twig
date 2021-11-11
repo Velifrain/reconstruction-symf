@@ -1,51 +1,6 @@
 <!-- HEADER -->
 <header id="header" class="shadow-xs bg-gradient-dark">
 
-    {#    <!--top bar -->#}
-    {#    <div id="top_bar" class="bg-dark fs--14"> <!-- optional if body.header-sticky is present: add .js-ignore class to ignore autohide and stay visible all the time -->#}
-    {#        <div class="container">#}
-
-    {#            <div class="text-nowrap"><!-- change with .scrollable-horizontal to horizontally scroll, if -only- no dropdown is present -->#}
-    {#                <div class="d-flex justify-content-end">#}
-
-    {#                    <div class="d-inline-block float-end">#}
-    {#                        <ul class="list-inline m-0">#}
-
-    {#                            <!-- LANGUAGE -->#}
-    {#                            <li class="dropdown list-inline-item m-0">#}
-
-    {#                                <a id="topDDLanguage" href="#" class="py-2 d-inline-block js-stoppropag" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">#}
-    {#                                    <i class="flag flag-ua"></i>#}
-    {#                                    <span class="text-muted pl-2 pr-2">UA</span>#}
-    {#                                </a>#}
-
-    {#                                <div aria-labelledby="topDDLanguage" class="dropdown-menu dropdown-menu-hover text-uppercase fs--13 px-1 pt-1 pb-0 m-0 max-h-50vh scrollable-vertical">#}
-    {#                                    <a href="#" class="active dropdown-item text-muted text-truncate line-height-1 rounded p--12 mb-1">#}
-    {#                                        <i class="flag flag-ua"></i>#}
-    {#                                        UA#}
-    {#                                    </a>#}
-    {#                                    <a href="#" class="dropdown-item text-muted text-truncate line-height-1 rounded p--12 mb-1">#}
-    {#                                        <i class="flag flag-ru"></i>#}
-    {#                                        RU#}
-    {#                                    </a>#}
-    {#                                    <a href="#" class="dropdown-item text-muted text-truncate line-height-1 rounded p--12 mb-1">#}
-    {#                                        <i class="flag flag-us"></i>#}
-    {#                                        EN#}
-    {#                                    </a>#}
-    {#                                </div>#}
-
-    {#                            </li>#}
-    {#                            <!-- /LANGUAGE -->#}
-
-    {#                        </ul>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-
-    {#        </div>#}
-    {#    </div>#}
-    {#    <!--/top bar-->#}
-
     <!-- NAVBAR -->
     <div class="container position-relative">
 
@@ -94,17 +49,6 @@
                 </div>
                 <!-- /MOBILE MENU NAVBAR -->
 
-                <!-- NAVIGATION -->
-                <ul class="navbar-nav">
-
-                    <li class="nav-item">
-                            <a class="nav-link scroll-to text-white text-secondary-hover" href="#">
-                                {{ 'menu.homepage'|trans }}
-                            </a>
-                    </li>
-                </ul>
-
-                <!-- /NAVIGATION -->
             </div>
 
             <!-- OPTIONS -->
@@ -129,9 +73,6 @@
                         </a>
                         <div aria-labelledby="dropdownAccountOptions" class="prefix-link-icon prefix-icon-dot dropdown-menu
                         dropdown-menu-clean dropdown-menu-invert dropdown-click-ignore dropdown-menu-dark p-0 mt--18 fs--15">
-                            <div class="dropdown-header">
-                                {{ 'title.name_user'|trans }}
-                            </div>
                             <div class="dropdown-divider"></div>
                             <a href="{{ path('profile_info') }}" class="dropdown-item text-truncate font-weight-light">{{ 'menu.profile'|trans }}</a>
                             <div class="dropdown-divider"></div>
@@ -145,7 +86,6 @@
                         </div>
                     </li>
                 {% endif %}
-
 
             </ul>
             <!-- /OPTIONS -->

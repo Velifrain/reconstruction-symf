@@ -1,12 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TestController!{% endblock %}
-
 {% block content %}
-
+    {% block breadcrumb %}
+        <!-- PAGE TITLE -->
+        <section class="bg-light p-0">
+            <div class="container py-4">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb fs--12">
+                        <li class="breadcrumb-item"><a href="{{ path('index') }}">{{ 'menu.homepage'|trans }}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ path('profile_info') }}">{{ 'menu.profile'|trans }}</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Створити</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+        <!-- /PAGE TITLE -->
+    {% endblock %}
     <section class="flex-grow-1">
+
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
 
                 <div class="col-12 col-sm-12 col-md-12 col-lg-9">
                     {% for message in app.flashes('notice') %}
@@ -22,7 +35,7 @@
                         <div class="row">
                             <div class="col-12 col-sm-8 col-md-11 m-auto">
                                 <h3 class="mt-3 text-center mb-5">
-                                    {{ 'Створення інвентаря'| trans }}
+                                    Створення інвентаря
                                 </h3>
 
                                 {{ form_start(feetForm, {'attr': {
@@ -34,7 +47,9 @@
                                 <!-- PERSONAL DETAIL -->
 
                                 <div class="mb-4">
-                                    {{ form_label(feetForm.name) }}
+                                    {{ form_label(feetForm.name, null, {
+                                        'label': 'Назва',
+                                    }) }}
                                     {{ form_widget(feetForm.name, {'attr': {
                                         'class': 'form-control',
                                         'autocomplete': 'off'
@@ -47,7 +62,9 @@
                                 <!--IMAGE-->
                                 <!--LIST TYPE : STATIC-->
                                 <div class="mb-3">
-                                    {{ form_label(feetForm.cover) }}
+                                    {{ form_label(feetForm.cover, null, {
+                                        'label': 'Обкладинка',
+                                    }) }}
                                     <div class="input-group">
                                         <label class="btn btn-primary btn-soft cursor-pointer position-relative">
 
@@ -95,7 +112,9 @@
                                 <!--/IMAGE-->
 
                                 <div class="mb-4">
-                                    {{ form_label(feetForm.description) }}
+                                    {{ form_label(feetForm.description, null, {
+                                        'label': 'Опис выроба'
+                                    }) }}
                                     {{ form_widget(feetForm.description, {'attr': {
                                         'class': 'form-control',
                                         'autocomplete': 'off'
@@ -109,7 +128,9 @@
                                 <!--LIST TYPE : STATIC-->
                                 <div class="mb-3">
 
-                                    {{ form_label(feetForm.gallery) }}
+                                    {{ form_label(feetForm.gallery, null, {
+                                        'label': 'Додатковi зображення'
+                                    }) }}
                                     <div class="input-group">
                                         <label class="btn btn-primary btn-soft cursor-pointer position-relative">
                                             {{ form_widget(feetForm.gallery, {'attr': {
